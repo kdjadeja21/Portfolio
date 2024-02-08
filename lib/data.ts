@@ -32,20 +32,12 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Master of Computer Applications - MCA, Computer Engineering",
-    location: "Rajkot, Gujarat",
+    title: "Associate Team Leader",
+    location: "Simform Solutions LLP",
     description:
-      "",
-    icon: React.createElement(LuGraduationCap),
-    date: "2019",
-  },
-  {
-    title: "Odoo Developer",
-    location: "Emipro Technologies Pvt. Ltd.",
-    description:
-      "I worked as an Odoo Developer. I have implemented Amazon odoo connector app.",
-    icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2020",
+      "Working as a MERN stack developer. I have implemented many web portal which is mostly built in ReactJS and NodeJS Developed several quickweb apps within short timelines for multiple client requirements.",
+    icon: React.createElement(FaReact),
+    date: "2021 - Present",
   },
   {
     title: "Software Engineer",
@@ -56,13 +48,21 @@ export const experiencesData = [
     date: "2020 - 2021",
   },
   {
-    title: "Software Engineer",
-    location: "Simform Solutions LLP",
+    title: "Web Developer",
+    location: "Emipro Technologies Pvt. Ltd.",
     description:
-      "Working as a MERN stack developer. I have implemented many web portal which is mostly built in ReactJS and NodeJS Developed several quickweb apps within short timelines for multiple client requirements.",
-    icon: React.createElement(FaReact),
-    date: "2021 - Present",
+      "I worked as a Web Developer. I have implemented Amazon odoo connector app.",
+    icon: React.createElement(CgWorkAlt),
+    date: "2019 - 2020",
   },
+  {
+    title: "Master of Computer Applications - MCA, Computer Engineering",
+    location: "Rajkot, Gujarat",
+    description:
+      "",
+    icon: React.createElement(LuGraduationCap),
+    date: "2019",
+  },  
 ] as const;
 
 export const projectsData = [
