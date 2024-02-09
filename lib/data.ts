@@ -37,7 +37,15 @@ export const experiencesData = [
     description:
       "Working as a MERN stack developer. I have implemented many web portal which is mostly built in ReactJS and NodeJS Developed several quickweb apps within short timelines for multiple client requirements.",
     icon: React.createElement(FaReact),
-    date: "2021 - Present",
+    date: "2023 - Present",
+  },
+  {
+    title: "Software Engineer",
+    location: "Simform Solutions LLP",
+    description:
+      "Working as a MERN stack developer. I have implemented many web portal which is mostly built in ReactJS and NodeJS Developed several quickweb apps within short timelines for multiple client requirements.",
+    icon: React.createElement(FaReact),
+    date: "2021 - 2023",
   },
   {
     title: "Software Engineer",
