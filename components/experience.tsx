@@ -38,11 +38,18 @@ function ExperienceIcon({
   return null;
 }
 
-function PresentRibbon() {
+function PresentRibbon({
+  background,
+  color,
+}: {
+  background: string;
+  color: string;
+}) {
   return (
     <span
       aria-label="Present"
-      className="pointer-events-none absolute top-[0.85rem] -right-7 w-[6.5rem] rotate-45 bg-emerald-500 py-[0.28rem] text-center text-[0.62rem] font-semibold tracking-[0.08em] text-white shadow-sm dark:bg-emerald-400 dark:text-emerald-950"
+      className="pointer-events-none absolute top-[0.85rem] -right-7 w-[6.5rem] rotate-45 py-[0.28rem] text-center text-[0.62rem] font-semibold tracking-[0.08em] shadow-sm"
+      style={{ background, color }}
     >
       Present
     </span>
@@ -69,17 +76,21 @@ export default function Experience() {
             : isLight
               ? "#f3f4f6"
               : "rgba(255, 255, 255, 0.05)";
+          const accent = isCurrent
+            ? isLight
+              ? "#6d5bdb"
+              : "#c4b5fd"
+            : isLight
+              ? "#9ca3af"
+              : "rgba(255, 255, 255, 0.32)";
+          const ribbonColor = isLight ? "#ffffff" : "#1e1b4b";
 
           return (
             <React.Fragment key={index}>
               <VerticalTimelineElement
                 contentStyle={{
                   background: cardBackground,
-                  boxShadow: isCurrent
-                    ? isLight
-                      ? "inset 3px 0 0 #6d5bdb"
-                      : "inset 3px 0 0 rgba(196, 181, 253, 0.9)"
-                    : "none",
+                  boxShadow: `inset 3px 0 0 ${accent}`,
                   border: isLight
                     ? "1px solid rgba(0, 0, 0, 0.05)"
                     : "1px solid rgba(255, 255, 255, 0.06)",
@@ -107,7 +118,10 @@ export default function Experience() {
               >
                 {isCurrent ? (
                   <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[0.25em]">
-                    <PresentRibbon />
+                    <PresentRibbon
+                      background={accent}
+                      color={ribbonColor}
+                    />
                   </div>
                 ) : null}
                 <h3 className="font-semibold capitalize">{item.title}</h3>
