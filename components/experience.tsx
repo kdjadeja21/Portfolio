@@ -62,18 +62,19 @@ export default function Experience() {
       <VerticalTimeline lineColor="">
         {experiencesData?.map((item, index) => {
           const isCurrent = item.date.includes("Present");
+          const cardBackground = isCurrent
+            ? isLight
+              ? "#ffffff"
+              : "rgba(255, 255, 255, 0.09)"
+            : isLight
+              ? "#f3f4f6"
+              : "rgba(255, 255, 255, 0.05)";
 
           return (
             <React.Fragment key={index}>
               <VerticalTimelineElement
                 contentStyle={{
-                  background: isCurrent
-                    ? isLight
-                      ? "#ffffff"
-                      : "rgba(255, 255, 255, 0.09)"
-                    : isLight
-                      ? "#f3f4f6"
-                      : "rgba(255, 255, 255, 0.05)",
+                  background: cardBackground,
                   boxShadow: isCurrent
                     ? isLight
                       ? "inset 3px 0 0 #6d5bdb"
@@ -87,12 +88,10 @@ export default function Experience() {
                     ? "1.3rem 3.25rem 1.3rem 2rem"
                     : "1.3rem 2rem",
                   position: "relative",
-                  overflow: "hidden",
+                  overflow: "visible",
                 }}
                 contentArrowStyle={{
-                  borderRight: isLight
-                    ? "0.4rem solid #9ca3af"
-                    : "0.4rem solid rgba(255, 255, 255, 0.5)",
+                  borderRight: `0.4rem solid ${cardBackground}`,
                 }}
                 icon={<ExperienceIcon item={item} />}
                 iconStyle={{
@@ -106,7 +105,11 @@ export default function Experience() {
                   height: "2.75rem",
                 }}
               >
-                {isCurrent ? <PresentRibbon /> : null}
+                {isCurrent ? (
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[0.25em]">
+                    <PresentRibbon />
+                  </div>
+                ) : null}
                 <h3 className="font-semibold capitalize">{item.title}</h3>
                 <p className="font-normal !mt-0">{item.location}</p>
                 <p className="!mt-1 !font-semibold text-sm text-gray-800 dark:text-white/80">

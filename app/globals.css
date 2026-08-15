@@ -23,7 +23,11 @@ html.dark {
 }
 
 .vertical-timeline-element-content {
-  overflow: hidden;
+  overflow: visible;
+}
+
+.vertical-timeline-element-content-arrow {
+  z-index: 1;
 }
 
 .vertical-timeline-element-date {
