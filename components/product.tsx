@@ -70,7 +70,7 @@ export default function Product({
             <ul className="flex flex-wrap gap-2">
               {tags.map((tag, index) => (
                 <li
-                  className="rounded-full bg-black/[0.07] px-3 py-1 text-[0.7rem] font-medium tracking-wide text-gray-700 dark:bg-white/10 dark:text-white/60"
+                  className="inline-flex h-7 items-center justify-center rounded-full bg-black/[0.07] px-3 text-[0.7rem] font-medium leading-none tracking-wide text-gray-700 dark:bg-white/10 dark:text-white/60"
                   key={index}
                 >
                   {tag}
