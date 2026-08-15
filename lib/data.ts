@@ -42,8 +42,6 @@ export const experiencesData = [
     description:
       "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux. Works with Schneider Electric, Wayfair, and Avis Budget Group clients.",
     logoSrc: "/logos/epam.png",
-    logoClassName: "h-12 w-[3.35rem] object-contain",
-    logoEmphasis: true,
     date: "Feb 2025 – Present",
   },
   {
