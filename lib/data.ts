@@ -1,7 +1,3 @@
-import React from "react";
-import { CgWorkAlt } from "react-icons/cg";
-import { LuGraduationCap } from "react-icons/lu";
-
 export { email, socialLinks } from "./site";
 
 export const links = [
@@ -46,6 +42,8 @@ export const experiencesData = [
     description:
       "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux.",
     logoSrc: "/logos/epam.png",
+    logoClassName: "h-12 w-[3.35rem] object-contain",
+    logoEmphasis: true,
     date: "Feb 2025 – Present",
   },
   {
@@ -76,7 +74,7 @@ export const experiencesData = [
     title: "Web Developer",
     location: "Emipro Technologies Pvt. Ltd.",
     description: "Web developer. Implemented an Amazon–Odoo connector app.",
-    icon: React.createElement(CgWorkAlt),
+    logoSrc: "/logos/emipro.png",
     date: "Apr 2019 – Jan 2020",
   },
   {
@@ -90,7 +88,7 @@ export const experiencesData = [
     title: "MCA, Computer Engineering",
     location: "Marwadi University, Rajkot, Gujarat",
     description: "",
-    icon: React.createElement(LuGraduationCap),
+    logoSrc: "/logos/marwadi.png",
     date: "2017 – 2019",
   },
 ] as const;
@@ -109,14 +107,14 @@ export const productsData: readonly ProductItem[] = [
     title: "In-Hand Helper",
     description:
       "Salary impact dashboard that applies the 50% basic-salary rule and compares old vs new tax regimes.",
-    tags: ["Next.js", "TypeScript", "Vercel"],
+    tags: ["TypeScript", "React"],
     liveUrl: "https://inhandsalary.vercel.app",
     imageUrl: "/products/in-hand-helper.png",
   },
   {
     title: "Backdrop Studio",
     description: "Image background tool with a dark, modern UI.",
-    tags: ["Next.js", "Vercel"],
+    tags: ["React"],
     liveUrl: "https://backdrop-studio.vercel.app",
     imageUrl: "/products/backdrop-studio.png",
   },
@@ -132,16 +130,15 @@ export const productsData: readonly ProductItem[] = [
     title: "EventClaim",
     description:
       "Cursor Community check-in, coupon, and credit/offer distribution with admin Google login. Used at the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Also at claimflow-rust.vercel.app.",
-    tags: ["Next.js", "Google Auth", "Vercel"],
+    tags: ["React", "Google Auth"],
     liveUrl: "https://eventclaim.vercel.app",
-    githubUrl: "https://github.com/kdjadeja21/claimflow",
     imageUrl: "/products/eventclaim.png",
   },
   {
     title: "Router Pulse",
     description:
       "Home network / LAN device visibility. Public GitHub repo; no marketing URL.",
-    tags: ["TypeScript", "Next.js"],
+    tags: ["TypeScript"],
     githubUrl: "https://github.com/kdjadeja21/router-pulse",
     imageUrl: "/products/router-pulse.png",
   },
@@ -171,15 +168,14 @@ export const projectsData = [
 export const skillsData = [
   "TypeScript",
   "React",
-  "Next.js",
   "Node.js",
-  "Tailwind",
+  "JavaScript",
   "Jest",
   "Redux",
   "GraphQL",
-  "Vercel",
   "Cursor",
   "AI consulting",
+  "Next.js",
   "PostgreSQL",
   "MongoDB",
   "Express",
@@ -187,20 +183,3 @@ export const skillsData = [
   "Azure",
   "Apollo",
 ] as const;
-
-export const cursorCommunity = {
-  statsAsOf: "15 Aug 2026",
-  profileUrl: "https://cursor.com/@kdjadeja",
-  directoryUrl: "https://cursor.directory/u/kdjadeja21",
-  xUrl: "https://x.com/kdjadeja911",
-  xDisplay: "@KdJadeja911",
-  agents: 179,
-  localAgents: 114,
-  cloudAgents: 65,
-  longestAgent: "6.5h",
-  streakDays: 27,
-  tokens: "602.8M",
-  joinedDaysAgo: 616,
-  hackathon:
-    "Co-organized the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE) and shipped EventClaim as the check-in and credit/offer ops tool.",
-} as const;

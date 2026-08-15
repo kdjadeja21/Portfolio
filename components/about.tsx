@@ -20,7 +20,7 @@ export default function About() {
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
         I&apos;m a senior software engineer and AI consultant in Gujarat, India,
-        with 7+ years building production web apps. I completed an{" "}
+        with 7+ years shipping production systems. I completed an{" "}
         <span className="font-medium">
           MCA in Computer Engineering at Marwadi University
         </span>
@@ -30,7 +30,7 @@ export default function About() {
         India community.
       </p>
       <p className="mb-3">
-        I help teams adopt{" "}
+        I help organisations adopt{" "}
         <a
           className="underline underline-offset-4"
           href="https://cursor.com"
@@ -39,10 +39,15 @@ export default function About() {
         >
           Cursor
         </a>{" "}
-        and ship small public tools when a problem is worth solving — including{" "}
-        <span className="font-medium">EventClaim</span>, used for check-in and
-        credit distribution at the official Cursor Hackathon Ahmedabad. Day to
-        day I work with TypeScript, React, Next.js, and Cursor.
+        and build automation around delivery — from event ops tools like{" "}
+        <span className="font-medium">EventClaim</span> to the small public
+        products I ship when a problem is worth solving. Day to day I work in
+        TypeScript and React, with a strong bias toward AI-assisted engineering.
+      </p>
+      <p className="mb-3">
+        I recently launched a{" "}
+        <span className="font-medium">Grok bot</span> that I use heavily to
+        automate repetitive work, reminders, and similar tasks.
       </p>
       <p>
         <span className="italic">When I&apos;m not coding</span>, I enjoy

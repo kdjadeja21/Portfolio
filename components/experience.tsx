@@ -18,20 +18,21 @@ function ExperienceIcon({
   item: (typeof experiencesData)[number];
 }) {
   if ("logoSrc" in item && item.logoSrc) {
+    const className =
+      "logoClassName" in item && item.logoClassName
+        ? item.logoClassName
+        : "h-8 w-8 object-contain";
+
     return (
       <Image
         src={item.logoSrc}
         alt=""
-        width={28}
-        height={28}
-        className="h-7 w-7 object-contain"
+        width={64}
+        height={64}
+        className={className}
         unoptimized
       />
     );
-  }
-
-  if ("icon" in item && item.icon) {
-    return item.icon;
   }
 
   return null;
@@ -47,44 +48,53 @@ export default function Experience() {
         <SectionHeading>My experience</SectionHeading>
       </div>
       <VerticalTimeline lineColor="">
-        {experiencesData?.map((item, index) => (
-          <React.Fragment key={index}>
-            <VerticalTimelineElement
-              contentStyle={{
-                background:
-                  theme === "light" ? "#f3f4f6" : "rgba(255, 255, 255, 0.05)",
-                boxShadow: "none",
-                border: "1px solid rgba(0, 0, 0, 0.05)",
-                textAlign: "left",
-                padding: "1.3rem 2rem",
-              }}
-              contentArrowStyle={{
-                borderRight:
-                  theme === "light"
-                    ? "0.4rem solid #9ca3af"
-                    : "0.4rem solid rgba(255, 255, 255, 0.5)",
-              }}
-              date={item.date}
-              icon={<ExperienceIcon item={item} />}
-              iconStyle={{
-                background: theme === "light" ? "white" : "white",
-                fontSize: "1.5rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-              }}
-            >
-              <h3 className="font-semibold capitalize">{item.title}</h3>
-              <p className="font-normal !mt-0">{item.location}</p>
-              {item.description ? (
-                <p className="!mt-1 !font-normal text-gray-700 dark:text-white/75">
-                  {item.description}
-                </p>
-              ) : null}
-            </VerticalTimelineElement>
-          </React.Fragment>
-        ))}
+        {experiencesData?.map((item, index) => {
+          const emphasized =
+            "logoEmphasis" in item && Boolean(item.logoEmphasis);
+
+          return (
+            <React.Fragment key={index}>
+              <VerticalTimelineElement
+                contentStyle={{
+                  background:
+                    theme === "light"
+                      ? "#f3f4f6"
+                      : "rgba(255, 255, 255, 0.05)",
+                  boxShadow: "none",
+                  border: "1px solid rgba(0, 0, 0, 0.05)",
+                  textAlign: "left",
+                  padding: "1.3rem 2rem",
+                }}
+                contentArrowStyle={{
+                  borderRight:
+                    theme === "light"
+                      ? "0.4rem solid #9ca3af"
+                      : "0.4rem solid rgba(255, 255, 255, 0.5)",
+                }}
+                date={item.date}
+                icon={<ExperienceIcon item={item} />}
+                iconStyle={{
+                  background: "white",
+                  fontSize: "1.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  width: emphasized ? "4rem" : "2.75rem",
+                  height: emphasized ? "4rem" : "2.75rem",
+                }}
+              >
+                <h3 className="font-semibold capitalize">{item.title}</h3>
+                <p className="font-normal !mt-0">{item.location}</p>
+                {item.description ? (
+                  <p className="!mt-1 !font-normal text-gray-700 dark:text-white/75">
+                    {item.description}
+                  </p>
+                ) : null}
+              </VerticalTimelineElement>
+            </React.Fragment>
+          );
+        })}
       </VerticalTimeline>
     </section>
   );

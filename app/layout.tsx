@@ -13,7 +13,7 @@ export const metadata = {
   title:
     "Krushnasinh Jadeja | Senior Software Engineer · Cursor Ambassador · AI Consultant",
   description:
-    "Senior software engineer, official Cursor Ambassador, and AI consultant in Gujarat, India. I build production web apps with Next.js and Cursor.",
+    "Senior software engineer, Cursor Ambassador, and AI consultant in Gujarat, India. I help organisations ship software and build automation.",
 };
 
 export default function RootLayout({

@@ -75,8 +75,8 @@ export default function Intro() {
           Senior Software Engineer · Cursor Ambassador · AI Consultant
         </span>
         <span className="mt-4 block text-lg font-normal sm:text-2xl">
-          I build production web apps with Next.js and Cursor, consult on
-          AI-assisted engineering, and help the India Cursor community ship.
+          I build production software, consult on AI-assisted engineering, and
+          help organisations automate the work around shipping.
         </span>
       </motion.h1>
 
