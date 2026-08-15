@@ -18,19 +18,36 @@ function ExperienceIcon({
   item: (typeof experiencesData)[number];
 }) {
   if ("logoSrc" in item && item.logoSrc) {
+    const className =
+      "logoClassName" in item && item.logoClassName
+        ? item.logoClassName
+        : "h-8 w-8 object-contain";
+
     return (
       <Image
         src={item.logoSrc}
         alt=""
-        width={40}
+        width={80}
         height={40}
-        className="h-8 w-8 object-contain"
+        className={className}
         unoptimized
       />
     );
   }
 
   return null;
+}
+
+function PresentBadge() {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[0.7rem] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/10 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-400/20">
+      <span className="relative flex h-1.5 w-1.5">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+      </span>
+      Present
+    </span>
+  );
 }
 
 export default function Experience() {
@@ -87,10 +104,16 @@ export default function Experience() {
                   height: "2.75rem",
                 }}
               >
-                <h3 className="font-semibold capitalize">{item.title}</h3>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-semibold capitalize">{item.title}</h3>
+                  {isCurrent ? <PresentBadge /> : null}
+                </div>
                 <p className="font-normal !mt-0">{item.location}</p>
+                <p className="!mt-1 !font-medium text-sm text-gray-500 dark:text-white/55">
+                  {item.date}
+                </p>
                 {item.description ? (
-                  <p className="!mt-1 !font-normal text-gray-700 dark:text-white/75">
+                  <p className="!mt-2 !font-normal text-gray-700 dark:text-white/75">
                     {item.description}
                   </p>
                 ) : null}
