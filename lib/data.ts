@@ -32,7 +32,7 @@ export const experiencesData = [
     title: "Cursor Ambassador",
     location: "Cursor",
     description:
-      "Official Cursor Ambassador for India. Helps connect the local community with the Cursor team. Co-organized the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Built EventClaim for check-in and credit/offer distribution.",
+      "Official Cursor Ambassador for India, with an active community of 750+ members. Helps connect the local community with the Cursor team and helps organisations build automation. Built EventClaim for check-in and credit/offer distribution.",
     logoSrc: "/logos/cursor.svg",
     date: "May 2026 – Present",
   },
@@ -40,7 +40,7 @@ export const experiencesData = [
     title: "Senior Software Engineer",
     location: "EPAM Systems",
     description:
-      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux.",
+      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux. Works with Schneider Electric, Wayfair, and Avis Budget Group clients.",
     logoSrc: "/logos/epam.png",
     logoClassName: "h-12 w-[3.35rem] object-contain",
     logoEmphasis: true,

@@ -45,9 +45,16 @@ export default function About() {
         TypeScript and React, with a strong bias toward AI-assisted engineering.
       </p>
       <p className="mb-3">
-        I recently launched a{" "}
-        <span className="font-medium">Grok bot</span> that I use heavily to
-        automate repetitive work, reminders, and similar tasks.
+        I use{" "}
+        <a
+          className="underline underline-offset-4"
+          href="https://x.ai/bot"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Grok&apos;s bot
+        </a>{" "}
+        heavily to automate repetitive work, reminders, and similar tasks.
       </p>
       <p>
         <span className="italic">When I&apos;m not coding</span>, I enjoy
