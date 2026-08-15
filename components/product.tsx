@@ -40,38 +40,44 @@ export default function Product({
           <p className="mt-2 leading-relaxed text-gray-700 dark:text-white/70">
             {description}
           </p>
-          <div className="flex flex-wrap gap-2 mt-3">
-            {liveUrl ? (
-              <a
-                href={liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-medium underline underline-offset-4"
-              >
-                Live <HiArrowTopRightOnSquare className="opacity-70" />
-              </a>
+          <div className="mt-6 flex flex-col gap-4 sm:mt-auto sm:pt-6">
+            {liveUrl || githubUrl ? (
+              <div className="flex flex-wrap gap-2">
+                {liveUrl ? (
+                  <a
+                    href={liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-950 dark:bg-white/15 dark:hover:bg-white/25"
+                  >
+                    Live
+                    <HiArrowTopRightOnSquare className="text-xs opacity-80" />
+                  </a>
+                ) : null}
+                {githubUrl ? (
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-gray-800 transition hover:bg-gray-50 dark:border-white/15 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/15"
+                  >
+                    GitHub
+                    <FaGithub className="text-xs opacity-80" />
+                  </a>
+                ) : null}
+              </div>
             ) : null}
-            {githubUrl ? (
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-medium underline underline-offset-4"
-              >
-                GitHub <FaGithub className="opacity-70" />
-              </a>
-            ) : null}
+            <ul className="flex flex-wrap gap-2">
+              {tags.map((tag, index) => (
+                <li
+                  className="rounded-full bg-black/[0.07] px-3 py-1 text-[0.7rem] font-medium tracking-wide text-gray-700 dark:bg-white/10 dark:text-white/60"
+                  key={index}
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="flex flex-wrap mt-4 gap-2 sm:mt-auto">
-            {tags.map((tag, index) => (
-              <li
-                className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full dark:text-white/70"
-                key={index}
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
         </div>
 
         <Image

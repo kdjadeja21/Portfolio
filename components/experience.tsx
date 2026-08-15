@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import SectionHeading from "./section-heading";
 import {
   VerticalTimeline,
@@ -10,6 +11,31 @@ import "react-vertical-timeline-component/style.min.css";
 import { experiencesData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
 import { useTheme } from "@/context/theme-context";
+
+function ExperienceIcon({
+  item,
+}: {
+  item: (typeof experiencesData)[number];
+}) {
+  if ("logoSrc" in item && item.logoSrc) {
+    return (
+      <Image
+        src={item.logoSrc}
+        alt=""
+        width={28}
+        height={28}
+        className="h-7 w-7 object-contain"
+        unoptimized
+      />
+    );
+  }
+
+  if ("icon" in item && item.icon) {
+    return item.icon;
+  }
+
+  return null;
+}
 
 export default function Experience() {
   const { ref } = useSectionInView("Experience");
@@ -39,11 +65,14 @@ export default function Experience() {
                     : "0.4rem solid rgba(255, 255, 255, 0.5)",
               }}
               date={item.date}
-              icon={item.icon}
+              icon={<ExperienceIcon item={item} />}
               iconStyle={{
-                background:
-                  theme === "light" ? "white" : "rgba(255, 255, 255, 0.15)",
+                background: theme === "light" ? "white" : "white",
                 fontSize: "1.5rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
               }}
             >
               <h3 className="font-semibold capitalize">{item.title}</h3>

@@ -1,8 +1,6 @@
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
-import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import { SiCursor } from "react-icons/si";
 
 export { email, socialLinks } from "./site";
 
@@ -39,7 +37,7 @@ export const experiencesData = [
     location: "Cursor",
     description:
       "Official Cursor Ambassador for India. Helps connect the local community with the Cursor team. Co-organized the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Built EventClaim for check-in and credit/offer distribution.",
-    icon: React.createElement(SiCursor),
+    logoSrc: "/logos/cursor.svg",
     date: "May 2026 – Present",
   },
   {
@@ -47,7 +45,7 @@ export const experiencesData = [
     location: "EPAM Systems",
     description:
       "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux.",
-    icon: React.createElement(CgWorkAlt),
+    logoSrc: "/logos/epam.png",
     date: "Feb 2025 – Present",
   },
   {
@@ -55,7 +53,7 @@ export const experiencesData = [
     location: "Simform Solutions LLP",
     description:
       "Senior Software Engineer on client web applications, primarily React and Node.js, with a focus on delivery and collaboration.",
-    icon: React.createElement(FaReact),
+    logoSrc: "/logos/simform-mark.svg",
     date: "Mar 2024 – Jan 2025",
   },
   {
@@ -63,7 +61,7 @@ export const experiencesData = [
     location: "Simform Solutions LLP",
     description:
       "Software engineer on React and Node.js web portals, including several quick-turn apps for client requirements.",
-    icon: React.createElement(FaReact),
+    logoSrc: "/logos/simform-mark.svg",
     date: "Jun 2021 – Mar 2024",
   },
   {
@@ -71,7 +69,7 @@ export const experiencesData = [
     location: "Wings Tech Solutions Pvt. Ltd.",
     description:
       "Full-stack engineer on React and Node.js web portals. In a small team, covered work from requirement analysis through generating the build.",
-    icon: React.createElement(FaReact),
+    logoSrc: "/logos/wings-mark.svg",
     date: "Mar 2020 – May 2021",
   },
   {
@@ -85,7 +83,7 @@ export const experiencesData = [
     title: ".NET Developer (internship)",
     location: "Knovos",
     description: "Short .NET developer internship.",
-    icon: React.createElement(CgWorkAlt),
+    logoSrc: "/logos/knovos.png",
     date: "Jan 2019 – Apr 2019",
   },
   {

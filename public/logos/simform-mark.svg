@@ -1,0 +1,16 @@
+<svg width="30" height="34" viewBox="0 0 30 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M15.4531 8.97037L0.20704 18.0808V9.8837L15.4531 0.320395V8.97037Z" fill="url(#simform_a)"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.207031 18.4425L15.4531 27.553V19.3559L0.207031 9.79256V18.4425Z" fill="#EF5366"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M29.6647 15.1981L14.4187 6.08765V14.2848L29.6647 23.8481V15.1981Z" fill="url(#simform_b)"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4187 24.6703L29.6647 15.5598V23.7569L14.4187 33.3202V24.6703Z" fill="#EF5366"/>
+  <defs>
+    <linearGradient id="simform_a" x1="8.21652" y1="0.967113" x2="-3.11369" y2="5.88892" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EF5366"/>
+      <stop offset="1" stop-color="#D71E23"/>
+    </linearGradient>
+    <linearGradient id="simform_b" x1="27.1509" y1="24.894" x2="17.0657" y2="20.3147" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D71E23"/>
+      <stop offset="1" stop-color="#EF5366"/>
+    </linearGradient>
+  </defs>
+</svg>
