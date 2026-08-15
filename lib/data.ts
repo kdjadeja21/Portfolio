@@ -1,7 +1,10 @@
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
+import { HiOutlineSparkles } from "react-icons/hi";
 import { LuGraduationCap } from "react-icons/lu";
+
+export { email, socialLinks } from "./site";
 
 export const links = [
   {
@@ -13,12 +16,12 @@ export const links = [
     hash: "#about",
   },
   {
-    name: "Projects",
-    hash: "#projects",
+    name: "Products",
+    hash: "#products",
   },
   {
-    name: "Skills",
-    hash: "#skills",
+    name: "Cursor",
+    hash: "#cursor",
   },
   {
     name: "Experience",
@@ -32,101 +35,173 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Associate Team Leader",
+    title: "Ambassador",
+    location: "Cursor",
+    description:
+      "Helps bridge the India community and the Cursor team. Co-organized Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Built EventClaim for check-in and credit/offer distribution.",
+    icon: React.createElement(HiOutlineSparkles),
+    date: "May 2026 – Present",
+  },
+  {
+    title: "Senior Software Engineer",
+    location: "EPAM Systems",
+    description:
+      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux.",
+    icon: React.createElement(CgWorkAlt),
+    date: "Feb 2025 – Present",
+  },
+  {
+    title: "Senior Software Engineer",
     location: "Simform Solutions LLP",
     description:
-      "As an Associate Team Leader, I oversee a team of 20 members, coordinating efforts to develop tailored software architectures that meet our clients' specific requirements. Collaborating closely with clients, I ensure a thorough understanding of their needs, facilitating effective communication and project management throughout the development lifecycle. My primary focus is on delivering solutions that align precisely with client expectations, leveraging efficient workflows and proactive problem-solving to achieve successful outcomes.",
+      "Senior Software Engineer on client web applications, primarily React and Node.js, with a focus on delivery and collaboration.",
     icon: React.createElement(FaReact),
-    date: "2023 - Present",
+    date: "Mar 2024 – Jan 2025",
   },
   {
     title: "Software Engineer",
     location: "Simform Solutions LLP",
     description:
-      "Working as a MERN stack developer. I have implemented many web portal which is mostly built in ReactJS and NodeJS Developed several quickweb apps within short timelines for multiple client requirements.",
+      "Software engineer on React and Node.js web portals, including several quick-turn apps for client requirements.",
     icon: React.createElement(FaReact),
-    date: "2021 - 2023",
+    date: "Jun 2021 – Mar 2024",
   },
   {
     title: "Software Engineer",
     location: "Wings Tech Solutions Pvt. Ltd.",
     description:
-      "I worked as a Fullstack developer. I have implemented many web portal which is mostly built in ReactJS and NodeJS. Being a small tight-knit team, I got a chance to wear many hats, from requirement analysis to generating the build.",
+      "Full-stack engineer on React and Node.js web portals. In a small team, covered work from requirement analysis through generating the build.",
     icon: React.createElement(FaReact),
-    date: "2020 - 2021",
+    date: "Mar 2020 – May 2021",
   },
   {
     title: "Web Developer",
     location: "Emipro Technologies Pvt. Ltd.",
-    description:
-      "I worked as a Web Developer. I have implemented Amazon odoo connector app.",
+    description: "Web developer. Implemented an Amazon–Odoo connector app.",
     icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2020",
+    date: "Apr 2019 – Jan 2020",
   },
   {
-    title: "Master of Computer Applications - MCA, Computer Engineering",
-    location: "Rajkot, Gujarat",
-    description:
-      "",
+    title: ".NET Developer (internship)",
+    location: "Knovos",
+    description: "Short .NET developer internship.",
+    icon: React.createElement(CgWorkAlt),
+    date: "Jan 2019 – Apr 2019",
+  },
+  {
+    title: "MCA, Computer Engineering",
+    location: "Marwadi University, Rajkot, Gujarat",
+    description: "",
     icon: React.createElement(LuGraduationCap),
-    date: "2019",
-  },  
+    date: "2017 – 2019",
+  },
+] as const;
+
+export type ProductItem = {
+  title: string;
+  description: string;
+  tags: readonly string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  imageUrl: string;
+};
+
+export const productsData: readonly ProductItem[] = [
+  {
+    title: "In-Hand Helper",
+    description:
+      "Salary impact dashboard that applies the 50% basic-salary rule and compares old vs new tax regimes.",
+    tags: ["Next.js", "TypeScript", "Vercel"],
+    liveUrl: "https://inhandsalary.vercel.app",
+    imageUrl: "/products/in-hand-helper.png",
+  },
+  {
+    title: "Backdrop Studio",
+    description: "Image background tool with a dark, modern UI.",
+    tags: ["Next.js", "Vercel"],
+    liveUrl: "https://backdrop-studio.vercel.app",
+    imageUrl: "/products/backdrop-studio.png",
+  },
+  {
+    title: "SIP Calculator",
+    description:
+      "Live systematic investment plan calculator. Footer: Made in India by Krushnasinh Jadeja.",
+    tags: ["React", "MUI", "Vercel"],
+    liveUrl: "https://sip-calc.vercel.app",
+    imageUrl: "/products/sip-calculator.png",
+  },
+  {
+    title: "EventClaim",
+    description:
+      "Cursor Community check-in, coupon, and credit/offer distribution with admin Google login. Used at Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Also at claimflow-rust.vercel.app.",
+    tags: ["Next.js", "Google Auth", "Vercel"],
+    liveUrl: "https://eventclaim.vercel.app",
+    githubUrl: "https://github.com/kdjadeja21/claimflow",
+    imageUrl: "/products/eventclaim.png",
+  },
+  {
+    title: "Router Pulse",
+    description:
+      "Home network / LAN device visibility. Public GitHub repo; no marketing URL.",
+    tags: ["TypeScript", "Next.js"],
+    githubUrl: "https://github.com/kdjadeja21/router-pulse",
+    imageUrl: "/products/router-pulse.png",
+  },
 ] as const;
 
 export const projectsData = [
   {
     title: "Database Monitoring Web Application",
     description:
-      "I worked as a frontend developer on this product. Database performance monitoring for the Data Platform, with fast root cause analysis and visibility across the Microsoft data estate. At-a-glance view of database environment health. Storage forecasting powered by predictive analytics. Identify contributing problems in the OS and virtual environment. Proactive alerting and response system. Find and fix high-impact queries.",
-    tags: ["React", "GraphQL", "Jest", "Typescript", ".NET", "Azure"],
+      "Frontend work on database performance monitoring for a data platform: fast root-cause analysis and visibility across the Microsoft data estate, environment health at a glance, storage forecasting, OS/virtual-environment contributors, proactive alerting, and high-impact query fixes.",
+    tags: ["React", "GraphQL", "Jest", "TypeScript", ".NET", "Azure"],
   },
   {
     title: "Online Training Platform",
     description:
-      "As a fullstack developer, I built an online platform for US police personnel training. Admins add trainees, who can then access locked programs. Completing each program unlocks more sessions. Trainees can track their performance and attend both free and paid sessions. Admins oversee trainee progress and access analytic reports.",
-    tags: ["React", "Redux", "NodeJS", "Express", "Azure"]    
-  },
-  {
-    title: "Social Media Platform",
-    description:
-      "It is an application that enables users to connect with other users and ask for help when they are in danger. Users can register themselves, connect with other users, like/comment/share other users' posts, upload posts. Users can exchange text messages with each other. On being in a dangerous position, user can ask for help that enables alert notification to other users in the proximity who are using the application.",
-    tags: ["NodeJS", "Express", "Twillio", "AWS"]
-  },
-  {
-    title: "Online Workout Platform",
-    description:
-      "It is a subscription base workout App. In this app admin can upload the workout videos and user will get that videos and also push notifications for that new workout as well. Some features include Workout videos, new workout push notifications, complete workout trackers, Save your workouts for later, set a weekly goal, Weight Tracker and many more.",
-    tags: ["NodeJS", "Express", "AWS"]
+      "Full-stack online platform for US police personnel training. Admins add trainees, who unlock programs as they complete sessions. Trainees track performance and attend free and paid sessions. Admins oversee progress and analytic reports.",
+    tags: ["React", "Redux", "Node.js", "Express", "Azure"],
   },
   {
     title: "E-Commerce Platform",
     description:
-      "A marketplace platform that facilitates merchants to connect with buyers for their products. Merchants can register and upload their products with their details, and images. Each merchant can manage their orders and payment transactions within the platform. Buyers can browse products from different categories, and merchants, add products from multiple merchants to the cart, complete the payment online, and many more.",
-    tags: ["React", "Typescript", "Redux", "AWS"]
+      "Marketplace where merchants connect with buyers. Merchants register, upload products, and manage orders and payments. Buyers browse categories, add products from multiple merchants, and complete payment online.",
+    tags: ["React", "TypeScript", "Redux", "AWS"],
   },
 ] as const;
 
 export const skillsData = [
-  "HTML",
-  "CSS",
-  "JavaScript",
   "TypeScript",
   "React",
-  "NextJs",
-  "NodeJs",
-  "Git",
-  "Jest",
+  "Next.js",
+  "Node.js",
   "Tailwind",
-  "MongoDB",
+  "Jest",
   "Redux",
   "GraphQL",
-  "Apollo",
-  "Express",
+  "Vercel",
+  "Cursor / AI-assisted development",
   "PostgreSQL",
-  "Twillo",
-  "Python",
-  "Django",
-  "Framer Motion",
+  "MongoDB",
+  "Express",
   "AWS",
   "Azure",
+  "Apollo",
 ] as const;
+
+export const cursorCommunity = {
+  statsAsOf: "15 Aug 2026",
+  profileUrl: "https://cursor.com/@kdjadeja",
+  directoryUrl: "https://cursor.directory/u/kdjadeja21",
+  xUrl: "https://x.com/kdjadeja911",
+  xDisplay: "@KdJadeja911",
+  agents: 179,
+  localAgents: 114,
+  cloudAgents: 65,
+  longestAgent: "6.5h",
+  streakDays: 27,
+  tokens: "602.8M",
+  joinedDaysAgo: 616,
+  hackathon:
+    "Co-organized Cursor Hackathon Ahmedabad (18 Jul 2026, York IE) and shipped EventClaim as the check-in and credit/offer ops tool.",
+} as const;

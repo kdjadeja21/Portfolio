@@ -19,28 +19,26 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-        After graduating with a degree in{" "}
+        I&apos;m a senior software engineer in Gujarat, India, with 7+ years
+        building production web apps. I completed an{" "}
         <span className="font-medium">
-          MCA (Masters in Computer Applications)
+          MCA in Computer Engineering at Marwadi University
         </span>
-        , I decided to pursue my passion for programming. I enrolled in a coding
-        bootcamp and learned{" "}
-        <span className="font-medium">full-stack web development</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
-        <span className="font-medium">
-          React, Node.js, Typescript, Unit Test, Next.js, and MySQL
-        </span>
-        . I am also familiar with MongoDB. I am always looking to learn new
-        technologies.
+        , and I currently work at{" "}
+        <span className="font-medium">EPAM Systems</span> while serving as a{" "}
+        <span className="font-medium">Cursor Ambassador</span> for the India
+        community.
       </p>
-
+      <p className="mb-3">
+        I ship small public tools when a problem is worth solving — including{" "}
+        <span className="font-medium">EventClaim</span>, which we used for
+        check-in and credit distribution at Cursor Hackathon Ahmedabad. Day to
+        day I work with TypeScript, React, and Next.js, often with AI-assisted
+        workflows.
+      </p>
       <p>
         <span className="italic">When I&apos;m not coding</span>, I enjoy
-        playing video games, watching movies. I also enjoy{" "}
-        <span className="font-medium">learning new things</span>.
+        playing video games and watching movies.
       </p>
     </motion.section>
   );
