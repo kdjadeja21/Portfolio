@@ -38,13 +38,12 @@ function ExperienceIcon({
   return null;
 }
 
-function PresentBadge() {
+function PresentRibbon() {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[0.7rem] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/10 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-400/20">
-      <span className="relative flex h-1.5 w-1.5">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-      </span>
+    <span
+      aria-label="Present"
+      className="pointer-events-none absolute top-[0.85rem] -right-7 w-[6.5rem] rotate-45 bg-emerald-500 py-[0.28rem] text-center text-[0.62rem] font-semibold tracking-[0.08em] text-white shadow-sm dark:bg-emerald-400 dark:text-emerald-950"
+    >
       Present
     </span>
   );
@@ -84,14 +83,17 @@ export default function Experience() {
                     ? "1px solid rgba(0, 0, 0, 0.05)"
                     : "1px solid rgba(255, 255, 255, 0.06)",
                   textAlign: "left",
-                  padding: "1.3rem 2rem",
+                  padding: isCurrent
+                    ? "1.3rem 3.25rem 1.3rem 2rem"
+                    : "1.3rem 2rem",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
                 contentArrowStyle={{
                   borderRight: isLight
                     ? "0.4rem solid #9ca3af"
                     : "0.4rem solid rgba(255, 255, 255, 0.5)",
                 }}
-                date={item.date}
                 icon={<ExperienceIcon item={item} />}
                 iconStyle={{
                   background: "white",
@@ -104,12 +106,10 @@ export default function Experience() {
                   height: "2.75rem",
                 }}
               >
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold capitalize">{item.title}</h3>
-                  {isCurrent ? <PresentBadge /> : null}
-                </div>
+                {isCurrent ? <PresentRibbon /> : null}
+                <h3 className="font-semibold capitalize">{item.title}</h3>
                 <p className="font-normal !mt-0">{item.location}</p>
-                <p className="!mt-1 !font-medium text-sm text-gray-500 dark:text-white/55">
+                <p className="!mt-1 !font-semibold text-sm text-gray-800 dark:text-white/80">
                   {item.date}
                 </p>
                 {item.description ? (
