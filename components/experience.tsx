@@ -54,31 +54,25 @@ export default function Experience() {
                   background: isCurrent
                     ? isLight
                       ? "#ffffff"
-                      : "rgba(255, 255, 255, 0.12)"
+                      : "rgba(255, 255, 255, 0.09)"
                     : isLight
                       ? "#f3f4f6"
                       : "rgba(255, 255, 255, 0.05)",
                   boxShadow: isCurrent
                     ? isLight
-                      ? "0 8px 24px rgba(15, 23, 42, 0.08)"
-                      : "0 8px 24px rgba(0, 0, 0, 0.28)"
+                      ? "inset 3px 0 0 #6d5bdb"
+                      : "inset 3px 0 0 rgba(196, 181, 253, 0.9)"
                     : "none",
-                  border: isCurrent
-                    ? isLight
-                      ? "2px solid rgba(17, 24, 39, 0.88)"
-                      : "2px solid rgba(255, 255, 255, 0.55)"
-                    : "1px solid rgba(0, 0, 0, 0.05)",
+                  border: isLight
+                    ? "1px solid rgba(0, 0, 0, 0.05)"
+                    : "1px solid rgba(255, 255, 255, 0.06)",
                   textAlign: "left",
                   padding: "1.3rem 2rem",
                 }}
                 contentArrowStyle={{
-                  borderRight: isCurrent
-                    ? isLight
-                      ? "0.4rem solid #111827"
-                      : "0.4rem solid rgba(255, 255, 255, 0.7)"
-                    : isLight
-                      ? "0.4rem solid #9ca3af"
-                      : "0.4rem solid rgba(255, 255, 255, 0.5)",
+                  borderRight: isLight
+                    ? "0.4rem solid #9ca3af"
+                    : "0.4rem solid rgba(255, 255, 255, 0.5)",
                 }}
                 date={item.date}
                 icon={<ExperienceIcon item={item} />}
@@ -91,21 +85,9 @@ export default function Experience() {
                   overflow: "hidden",
                   width: "2.75rem",
                   height: "2.75rem",
-                  boxShadow: isCurrent
-                    ? isLight
-                      ? "0 0 0 3px #111827"
-                      : "0 0 0 3px rgba(255, 255, 255, 0.7)"
-                    : undefined,
                 }}
               >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="font-semibold capitalize">{item.title}</h3>
-                  {isCurrent ? (
-                    <span className="rounded-full bg-gray-900 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-white dark:bg-white dark:text-gray-950">
-                      Present
-                    </span>
-                  ) : null}
-                </div>
+                <h3 className="font-semibold capitalize">{item.title}</h3>
                 <p className="font-normal !mt-0">{item.location}</p>
                 {item.description ? (
                   <p className="!mt-1 !font-normal text-gray-700 dark:text-white/75">
