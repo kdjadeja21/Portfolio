@@ -19,22 +19,30 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-        I&apos;m a senior software engineer in Gujarat, India, with 7+ years
-        building production web apps. I completed an{" "}
+        I&apos;m a senior software engineer and AI consultant in Gujarat, India,
+        with 7+ years building production web apps. I completed an{" "}
         <span className="font-medium">
           MCA in Computer Engineering at Marwadi University
         </span>
         , and I currently work at{" "}
-        <span className="font-medium">EPAM Systems</span> while serving as a{" "}
-        <span className="font-medium">Cursor Ambassador</span> for the India
-        community.
+        <span className="font-medium">EPAM Systems</span> while serving as an{" "}
+        <span className="font-medium">official Cursor Ambassador</span> for the
+        India community.
       </p>
       <p className="mb-3">
-        I ship small public tools when a problem is worth solving — including{" "}
-        <span className="font-medium">EventClaim</span>, which we used for
-        check-in and credit distribution at Cursor Hackathon Ahmedabad. Day to
-        day I work with TypeScript, React, and Next.js, often with AI-assisted
-        workflows.
+        I help teams adopt{" "}
+        <a
+          className="underline underline-offset-4"
+          href="https://cursor.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Cursor
+        </a>{" "}
+        and ship small public tools when a problem is worth solving — including{" "}
+        <span className="font-medium">EventClaim</span>, used for check-in and
+        credit distribution at the official Cursor Hackathon Ahmedabad. Day to
+        day I work with TypeScript, React, Next.js, and Cursor.
       </p>
       <p>
         <span className="italic">When I&apos;m not coding</span>, I enjoy

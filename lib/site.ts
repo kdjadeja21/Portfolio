@@ -17,5 +17,6 @@ export const socialLinks = [
   {
     name: "Cursor",
     url: "https://cursor.com/@kdjadeja",
+    display: "cursor.com/@kdjadeja",
   },
 ] as const;

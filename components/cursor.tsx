@@ -5,6 +5,8 @@ import SectionHeading from "./section-heading";
 import { motion } from "motion/react";
 import { useSectionInView } from "@/lib/hooks";
 import { cursorCommunity } from "@/lib/data";
+import CursorMark from "./cursor-mark";
+import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 
 const stats = [
   {
@@ -42,13 +44,29 @@ export default function CursorCommunity() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <SectionHeading>Cursor Ambassador</SectionHeading>
+      <div className="flex justify-center mb-4">
+        <span className="inline-flex items-center gap-2 rounded-full borderBlack bg-white px-4 py-2 text-sm font-medium dark:bg-white/10">
+          <CursorMark className="text-base" />
+          Official Cursor Ambassador
+        </span>
+      </div>
+      <SectionHeading>Cursor</SectionHeading>
       <p className="mb-6 leading-8 text-gray-700 dark:text-white/80">
-        I help connect the India Cursor community with the Cursor team.{" "}
-        {cursorCommunity.hackathon}
+        I represent Cursor in India and help connect the local community with
+        the Cursor team. {cursorCommunity.hackathon} Profile:{" "}
+        <a
+          className="font-medium underline underline-offset-4"
+          href={cursorCommunity.profileUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          cursor.com/@kdjadeja
+        </a>
+        .
       </p>
       <p className="mb-8 text-sm text-gray-500 dark:text-white/50">
-        Profile stats as of {cursorCommunity.statsAsOf} — not live counters.
+        Stats from the official Cursor profile as of{" "}
+        {cursorCommunity.statsAsOf} — not live counters.
       </p>
       <ul className="flex flex-wrap justify-center gap-3 mb-8">
         {stats.map((stat) => (
@@ -68,17 +86,27 @@ export default function CursorCommunity() {
           </li>
         ))}
       </ul>
-      <p className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm font-medium">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
-          className="underline underline-offset-4"
+          className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition text-sm font-medium"
           href={cursorCommunity.profileUrl}
           target="_blank"
           rel="noreferrer"
         >
+          <CursorMark />
           cursor.com/@kdjadeja
+          <HiArrowTopRightOnSquare className="opacity-70" />
         </a>
         <a
-          className="underline underline-offset-4"
+          className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 text-sm font-medium"
+          href="https://cursor.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          cursor.com
+        </a>
+        <a
+          className="underline underline-offset-4 text-sm font-medium"
           href={cursorCommunity.directoryUrl}
           target="_blank"
           rel="noreferrer"
@@ -86,14 +114,14 @@ export default function CursorCommunity() {
           cursor.directory
         </a>
         <a
-          className="underline underline-offset-4"
+          className="underline underline-offset-4 text-sm font-medium"
           href={cursorCommunity.xUrl}
           target="_blank"
           rel="noreferrer"
         >
           {cursorCommunity.xDisplay}
         </a>
-      </p>
+      </div>
     </motion.section>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
-import { HiOutlineSparkles } from "react-icons/hi";
 import { LuGraduationCap } from "react-icons/lu";
+import { SiCursor } from "react-icons/si";
 
 export { email, socialLinks } from "./site";
 
@@ -35,11 +35,11 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Ambassador",
+    title: "Cursor Ambassador",
     location: "Cursor",
     description:
-      "Helps bridge the India community and the Cursor team. Co-organized Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Built EventClaim for check-in and credit/offer distribution.",
-    icon: React.createElement(HiOutlineSparkles),
+      "Official Cursor Ambassador for India. Helps connect the local community with the Cursor team. Co-organized the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Built EventClaim for check-in and credit/offer distribution.",
+    icon: React.createElement(SiCursor),
     date: "May 2026 – Present",
   },
   {
@@ -133,7 +133,7 @@ export const productsData: readonly ProductItem[] = [
   {
     title: "EventClaim",
     description:
-      "Cursor Community check-in, coupon, and credit/offer distribution with admin Google login. Used at Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Also at claimflow-rust.vercel.app.",
+      "Cursor Community check-in, coupon, and credit/offer distribution with admin Google login. Used at the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Also at claimflow-rust.vercel.app.",
     tags: ["Next.js", "Google Auth", "Vercel"],
     liveUrl: "https://eventclaim.vercel.app",
     githubUrl: "https://github.com/kdjadeja21/claimflow",
@@ -180,7 +180,8 @@ export const skillsData = [
   "Redux",
   "GraphQL",
   "Vercel",
-  "Cursor / AI-assisted development",
+  "Cursor",
+  "AI consulting",
   "PostgreSQL",
   "MongoDB",
   "Express",
@@ -203,5 +204,5 @@ export const cursorCommunity = {
   tokens: "602.8M",
   joinedDaysAgo: 616,
   hackathon:
-    "Co-organized Cursor Hackathon Ahmedabad (18 Jul 2026, York IE) and shipped EventClaim as the check-in and credit/offer ops tool.",
+    "Co-organized the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE) and shipped EventClaim as the check-in and credit/offer ops tool.",
 } as const;

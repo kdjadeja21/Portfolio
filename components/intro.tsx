@@ -7,10 +7,11 @@ import Link from "next/link";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { FaGithubSquare } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { HiDownload, HiOutlineSparkles } from "react-icons/hi";
+import { HiDownload } from "react-icons/hi";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { socialLinks } from "@/lib/site";
+import CursorMark from "./cursor-mark";
 
 const linkedInUrl = socialLinks.find((link) => link.name === "LinkedIn")!.url;
 const githubUrl = socialLinks.find((link) => link.name === "GitHub")!.url;
@@ -71,11 +72,11 @@ export default function Intro() {
       >
         <span className="block font-bold">Hello, I&apos;m Krushnasinh.</span>
         <span className="mt-2 block text-xl sm:text-3xl">
-          Senior Software Engineer · Cursor Ambassador
+          Senior Software Engineer · Cursor Ambassador · AI Consultant
         </span>
         <span className="mt-4 block text-lg font-normal sm:text-2xl">
-          I build production web apps with Next.js and AI-assisted workflows,
-          and I help the India Cursor community ship.
+          I build production web apps with Next.js and Cursor, consult on
+          AI-assisted engineering, and help the India Cursor community ship.
         </span>
       </motion.h1>
 
@@ -106,16 +107,6 @@ export default function Intro() {
         >
           Download CV{" "}
           <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
-        </a>
-
-        <a
-          className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
-          href="https://inhandsalary.vercel.app"
-          target="_blank"
-          rel="noreferrer"
-        >
-          In-Hand Helper{" "}
-          <HiOutlineSparkles className="opacity-60" />
         </a>
 
         <a
@@ -153,9 +144,9 @@ export default function Intro() {
           href={cursorUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Cursor profile"
+          aria-label="Official Cursor profile"
         >
-          <HiOutlineSparkles />
+          <CursorMark />
         </a>
       </motion.div>
     </section>

@@ -1,6 +1,6 @@
 # Portfolio Website
 
-Personal portfolio for Krushnasinh Jadeja — Senior Software Engineer and Cursor Ambassador.
+Personal portfolio for Krushnasinh Jadeja — Senior Software Engineer, Cursor Ambassador, and AI Consultant.
 
 ## Features
 

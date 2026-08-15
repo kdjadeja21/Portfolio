@@ -10,9 +10,10 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Krushnasinh Jadeja | Senior Software Engineer · Cursor Ambassador",
+  title:
+    "Krushnasinh Jadeja | Senior Software Engineer · Cursor Ambassador · AI Consultant",
   description:
-    "Senior software engineer in Gujarat, India. I build production web apps with Next.js and AI-assisted workflows, and I help the India Cursor community ship.",
+    "Senior software engineer, official Cursor Ambassador, and AI consultant in Gujarat, India. I build production web apps with Next.js and Cursor.",
 };
 
 export default function RootLayout({
