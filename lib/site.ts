@@ -1,5 +1,7 @@
 export const email = "kdjadeja209@gmail.com";
 
+export const siteUrl = "https://krushnasinh.vercel.app";
+
 export const showCvDownload =
   process.env.NEXT_PUBLIC_SHOW_CV_DOWNLOAD !== "false";
 

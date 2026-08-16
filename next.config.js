@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isProduction = process.env.VERCEL_ENV === "production";
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -8,6 +10,23 @@ const nextConfig = {
       },
     ],
     qualities: [75, 95, 100],
+  },
+  async headers() {
+    if (!isProduction) {
+      return [];
+    }
+
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow",
+          },
+        ],
+      },
+    ];
   },
 };
 

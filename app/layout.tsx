@@ -1,19 +1,33 @@
 import Header from "@/components/header";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import type { Metadata } from "next";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
 import ThemeSwitch from "@/components/theme-switch";
 import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
+import { siteUrl } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title:
     "Krushnasinh Jadeja | Senior Software Engineer · Cursor Ambassador · AI Consultant",
   description:
     "Senior software engineer, Cursor Ambassador, and AI consultant in Gujarat, India. I help organisations ship software and build automation.",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
