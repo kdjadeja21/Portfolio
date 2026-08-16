@@ -32,7 +32,7 @@ export const experiencesData = [
     title: "Cursor Ambassador",
     location: "Cursor",
     description:
-      "Official Cursor Ambassador for India, with an active community of 750+ members. Helps connect the local community with the Cursor team and helps organisations build automation. Built EventClaim for check-in and credit/offer distribution.",
+      "Official Cursor Ambassador for India, with an active community of 1000+ members. Helps connect the local community with the Cursor team and helps organisations build automation. Built EventClaim for check-in and credit/offer distribution.",
     logoSrc: "/logos/cursor.svg",
     date: "May 2026 – Present",
   },
