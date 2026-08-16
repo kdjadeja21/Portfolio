@@ -84,6 +84,13 @@ export default function Experience() {
               ? "#9ca3af"
               : "rgba(255, 255, 255, 0.32)";
           const ribbonColor = isLight ? "#ffffff" : "#1e1b4b";
+          const arrowFill = isCurrent
+            ? isLight
+              ? "#ffffff"
+              : "#2c3344"
+            : isLight
+              ? "#f3f4f6"
+              : "#252b38";
 
           return (
             <React.Fragment key={index}>
@@ -100,9 +107,10 @@ export default function Experience() {
                     : "1.3rem 2rem",
                   position: "relative",
                   overflow: "visible",
+                  ["--experience-arrow" as string]: arrowFill,
                 }}
                 contentArrowStyle={{
-                  borderRight: `0.4rem solid ${cardBackground}`,
+                  borderRightColor: arrowFill,
                 }}
                 icon={<ExperienceIcon item={item} />}
                 iconStyle={{
