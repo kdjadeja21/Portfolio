@@ -1,5 +1,10 @@
 export const email = "kdjadeja209@gmail.com";
 
+export const showCvDownload =
+  process.env.NEXT_PUBLIC_SHOW_CV_DOWNLOAD !== "false";
+
+export const cvDownloadPath = "/Krushnasinh_Jadeja_CV.pdf";
+
 export const socialLinks = [
   {
     name: "LinkedIn",

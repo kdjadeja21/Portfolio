@@ -10,7 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { HiDownload } from "react-icons/hi";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
-import { socialLinks } from "@/lib/site";
+import { socialLinks, showCvDownload, cvDownloadPath } from "@/lib/site";
 import CursorMark from "./cursor-mark";
 
 const linkedInUrl = socialLinks.find((link) => link.name === "LinkedIn")!.url;
@@ -101,14 +101,16 @@ export default function Intro() {
             <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
           </Link>
 
-          <a
-            className="group bg-white px-7 py-3 flex items-center justify-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 min-w-[12.5rem]"
-            href="/Krushnasinh_Jadeja_CV.pdf"
-            download
-          >
-            Download CV{" "}
-            <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
-          </a>
+          {showCvDownload ? (
+            <a
+              className="group bg-white px-7 py-3 flex items-center justify-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 min-w-[12.5rem]"
+              href={cvDownloadPath}
+              download
+            >
+              Download CV{" "}
+              <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
+            </a>
+          ) : null}
         </div>
 
         <div className="flex flex-row items-center justify-center gap-2">
