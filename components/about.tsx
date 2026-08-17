@@ -19,28 +19,46 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-        After graduating with a degree in{" "}
+        I&apos;m a senior software engineer and AI consultant in Gujarat, India,
+        with 7+ years shipping production systems. I completed an{" "}
         <span className="font-medium">
-          MCA (Masters in Computer Applications)
+          MCA in Computer Engineering at Marwadi University
         </span>
-        , I decided to pursue my passion for programming. I enrolled in a coding
-        bootcamp and learned{" "}
-        <span className="font-medium">full-stack web development</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
-        <span className="font-medium">
-          React, Node.js, Typescript, Unit Test, Next.js, and MySQL
-        </span>
-        . I am also familiar with MongoDB. I am always looking to learn new
-        technologies.
+        , and I currently work at{" "}
+        <span className="font-medium">EPAM Systems</span> while serving as an{" "}
+        <span className="font-medium">official Cursor Ambassador</span> for the
+        India community.
       </p>
-
+      <p className="mb-3">
+        I help organisations adopt{" "}
+        <a
+          className="underline underline-offset-4"
+          href="https://cursor.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Cursor
+        </a>{" "}
+        and build automation around delivery — from event ops tools like{" "}
+        <span className="font-medium">EventClaim</span> to the small public
+        products I ship when a problem is worth solving. Day to day I work in
+        TypeScript and React, with a strong bias toward AI-assisted engineering.
+      </p>
+      <p className="mb-3">
+        I use{" "}
+        <a
+          className="underline underline-offset-4"
+          href="https://x.ai/bot"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Grok&apos;s bot
+        </a>{" "}
+        heavily to automate repetitive work, reminders, and similar tasks.
+      </p>
       <p>
         <span className="italic">When I&apos;m not coding</span>, I enjoy
-        playing video games, watching movies. I also enjoy{" "}
-        <span className="font-medium">learning new things</span>.
+        playing video games and watching movies.
       </p>
     </motion.section>
   );

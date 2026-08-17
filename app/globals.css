@@ -21,3 +21,15 @@ html.dark {
 @utility borderBlack {
   @apply border border-black/10;
 }
+
+.vertical-timeline-element-content {
+  overflow: visible;
+}
+
+.vertical-timeline-element-content-arrow {
+  display: none !important;
+}
+
+.vertical-timeline-element-date {
+  display: none !important;
+}
