@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { HiArrowUpRight } from "react-icons/hi2";
 import SectionHeading from "./section-heading";
@@ -31,7 +30,7 @@ export default function Products() {
           </p>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 lg:mt-24 lg:gap-10">
+        <div className="mt-16 flex flex-col gap-6 lg:mt-24 lg:gap-8">
           {productsData.map((product, index) => (
             <ProductCard key={product.title} product={product} index={index} />
           ))}
@@ -65,21 +64,6 @@ function ProductCard({
             start: "top 88%",
           },
         });
-
-        gsap.fromTo(
-          "[data-product-image]",
-          { yPercent: -6 },
-          {
-            yPercent: 6,
-            ease: "none",
-            scrollTrigger: {
-              trigger: cardRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
       });
     },
     { scope: cardRef }
@@ -88,30 +72,26 @@ function ProductCard({
   return (
     <article
       ref={cardRef}
-      className="group/card lg:sticky"
+      className="lg:sticky"
       style={{ top: `${96 + index * 20}px` }}
     >
-      <div className="grid overflow-hidden rounded-3xl border border-line bg-elevated transition-colors duration-500 hover:border-paper/25 lg:grid-cols-2">
-        <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12">
+      <div className="group relative overflow-hidden rounded-3xl border border-line bg-elevated p-7 transition-colors duration-500 hover:border-paper/25 sm:p-10 lg:p-12">
+        <span
+          aria-hidden
+          className="text-outline pointer-events-none absolute -bottom-8 right-4 hidden select-none font-display text-[9rem] font-extrabold leading-none tracking-tight transition-all duration-500 [-webkit-text-stroke-color:rgb(240_239_233/0.12)] group-hover:[-webkit-text-stroke-color:rgb(205_241_56/0.45)] sm:block lg:-bottom-12 lg:text-[13rem]"
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <div className="relative grid gap-8 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className="font-mono text-[0.7rem] uppercase tracking-[0.3em] text-accent">
               {String(index + 1).padStart(2, "0")}
             </p>
-            <h3 className="mt-4 font-display text-3xl font-extrabold uppercase tracking-tight sm:text-4xl">
+            <h3 className="mt-4 font-display text-3xl font-extrabold uppercase tracking-tight transition-transform duration-500 group-hover:translate-x-2 sm:text-5xl">
               {product.title}
             </h3>
-            <p className="mt-4 max-w-md leading-relaxed text-paper/70">
-              {product.description}
-            </p>
-            {product.highlight ? (
-              <p className="mt-4 max-w-md border-l-2 border-accent pl-4 font-mono text-xs leading-relaxed text-accent/90">
-                {product.highlight}
-              </p>
-            ) : null}
-          </div>
-
-          <div className="mt-8">
-            <ul className="flex flex-wrap gap-2">
+            <ul className="mt-6 flex flex-wrap gap-2">
               {product.tags.map((tag) => (
                 <li
                   key={tag}
@@ -121,8 +101,19 @@ function ProductCard({
                 </li>
               ))}
             </ul>
+          </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-5">
+          <div className="flex flex-col lg:pr-24">
+            <p className="max-w-md leading-relaxed text-paper/70">
+              {product.description}
+            </p>
+            {product.highlight ? (
+              <p className="mt-4 max-w-md border-l-2 border-accent pl-4 font-mono text-xs leading-relaxed text-accent/90">
+                {product.highlight}
+              </p>
+            ) : null}
+
+            <div className="mt-8 flex flex-wrap items-center gap-5">
               {product.liveUrl ? (
                 <a
                   href={product.liveUrl}
@@ -147,23 +138,6 @@ function ProductCard({
               ) : null}
             </div>
           </div>
-        </div>
-
-        <div className="relative min-h-[16rem] overflow-hidden border-t border-line bg-surface sm:min-h-[20rem] lg:border-l lg:border-t-0">
-          <div data-product-image className="absolute inset-[-8%]">
-            <Image
-              src={product.imageUrl}
-              alt={`${product.title} screenshot`}
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              quality={90}
-              className="object-cover object-top transition-transform duration-700 ease-out group-hover/card:scale-[1.04]"
-            />
-          </div>
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-elevated/50 to-transparent opacity-60 transition-opacity duration-500 group-hover/card:opacity-0"
-            aria-hidden
-          />
         </div>
       </div>
     </article>

@@ -116,7 +116,6 @@ export type ProductItem = {
   tags: readonly string[];
   liveUrl?: string;
   githubUrl?: string;
-  imageUrl: string;
 };
 
 export const productsData: readonly ProductItem[] = [
@@ -129,7 +128,6 @@ export const productsData: readonly ProductItem[] = [
     tags: ["React", "Google Auth"],
     liveUrl: "https://eventclaim.vercel.app",
     githubUrl: "https://github.com/kdjadeja21/claimflow",
-    imageUrl: "/products/eventclaim.png",
   },
   {
     title: "In-Hand Helper",
@@ -137,14 +135,12 @@ export const productsData: readonly ProductItem[] = [
       "Salary impact dashboard that applies the 50% basic-salary rule and compares old vs new tax regimes.",
     tags: ["TypeScript", "React"],
     liveUrl: "https://inhandsalary.vercel.app",
-    imageUrl: "/products/in-hand-helper.png",
   },
   {
     title: "Backdrop Studio",
     description: "Image background tool with a dark, modern editing UI.",
     tags: ["React"],
     liveUrl: "https://backdrop-studio.vercel.app",
-    imageUrl: "/products/backdrop-studio.png",
   },
   {
     title: "SIP Calculator",
@@ -152,7 +148,6 @@ export const productsData: readonly ProductItem[] = [
       "Live systematic investment plan calculator for planning investments over time.",
     tags: ["React", "MUI", "Vercel"],
     liveUrl: "https://sip-calc.vercel.app",
-    imageUrl: "/products/sip-calculator.png",
   },
   {
     title: "Router Pulse",
@@ -160,7 +155,6 @@ export const productsData: readonly ProductItem[] = [
       "Home network and LAN device visibility, open source on GitHub.",
     tags: ["TypeScript"],
     githubUrl: "https://github.com/kdjadeja21/router-pulse",
-    imageUrl: "/products/router-pulse.png",
   },
 ] as const;
 

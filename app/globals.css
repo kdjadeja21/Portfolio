@@ -8,6 +8,8 @@
   --color-muted: #8f8f98;
   --color-accent: #cdf138;
   --color-line: rgb(240 239 233 / 0.09);
+  --color-cursor-ink: #14120b;
+  --color-cursor-paper: #edecec;
 
   --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;

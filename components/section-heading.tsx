@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import clsx from "clsx";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
 type SectionHeadingProps = {
@@ -9,7 +8,6 @@ type SectionHeadingProps = {
   eyebrow: string;
   title: string;
   className?: string;
-  tone?: "default" | "inverted";
 };
 
 export default function SectionHeading({
@@ -17,7 +15,6 @@ export default function SectionHeading({
   eyebrow,
   title,
   className,
-  tone = "default",
 }: SectionHeadingProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -45,10 +42,7 @@ export default function SectionHeading({
     <div ref={ref} className={className}>
       <p
         data-heading-el
-        className={clsx(
-          "font-mono text-[0.7rem] uppercase tracking-[0.3em]",
-          tone === "inverted" ? "text-ink/70" : "text-accent"
-        )}
+        className="font-mono text-[0.7rem] uppercase tracking-[0.3em] text-accent"
       >
         {index} / {eyebrow}
       </p>
