@@ -44,7 +44,7 @@ const ORBS: readonly Orb[] = [
     speed: 0.00016,
     phase: 0.4,
     color: [205, 241, 56],
-    alpha: 0.1,
+    alpha: 0.17,
   },
   {
     id: 1,
@@ -57,7 +57,7 @@ const ORBS: readonly Orb[] = [
     speed: 0.00012,
     phase: 2.3,
     color: [139, 92, 246],
-    alpha: 0.085,
+    alpha: 0.15,
   },
   {
     id: 2,
@@ -70,7 +70,7 @@ const ORBS: readonly Orb[] = [
     speed: 0.0002,
     phase: 4.1,
     color: [94, 234, 212],
-    alpha: 0.07,
+    alpha: 0.13,
   },
   {
     id: 3,
@@ -83,7 +83,7 @@ const ORBS: readonly Orb[] = [
     speed: 0.00014,
     phase: 5.6,
     color: [96, 165, 250],
-    alpha: 0.06,
+    alpha: 0.11,
   },
 ] as const;
 
@@ -208,7 +208,8 @@ export default function AmbientBackground() {
         const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
         const [r, g, b] = orb.color;
         gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
-        gradient.addColorStop(0.45, `rgba(${r}, ${g}, ${b}, ${alpha * 0.35})`);
+        gradient.addColorStop(0.25, `rgba(${r}, ${g}, ${b}, ${alpha * 0.6})`);
+        gradient.addColorStop(0.55, `rgba(${r}, ${g}, ${b}, ${alpha * 0.24})`);
         gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -218,7 +219,11 @@ export default function AmbientBackground() {
 
         // Bright core node — the landing point for connector lines.
         const pulse = 1.6 + Math.sin(time * 0.0016 + orb.phase * 2) * 0.5;
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.5 + energy * 0.3})`;
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.12)`;
+        ctx.beginPath();
+        ctx.arc(x, y, pulse * 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.6 + energy * 0.3})`;
         ctx.beginPath();
         ctx.arc(x, y, pulse, 0, Math.PI * 2);
         ctx.fill();
