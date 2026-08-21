@@ -1,38 +1,50 @@
 import React from "react";
 import { email, socialLinks } from "@/lib/site";
+import Marquee from "@/components/marquee";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mb-10 px-4 text-center text-gray-500">
-      <small className="mb-2 block text-xs">
-        &copy; {currentYear} Krushnasinh Jadeja. All rights reserved.
-      </small>
-      <p className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs">
-        {socialLinks.map((link) => (
-          <a
-            key={link.name}
-            href={link.url}
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-4 hover:text-gray-950 dark:hover:text-white/80"
-          >
-            {"display" in link ? link.display : link.name}
-          </a>
-        ))}
-        <a
-          href={`mailto:${email}`}
-          className="underline underline-offset-4 hover:text-gray-950 dark:hover:text-white/80"
-        >
-          {email}
-        </a>
-      </p>
-      <p className="text-xs">
-        <span className="font-semibold">About this website:</span> built with
-        React & Next.js (App Router & Server Actions), TypeScript, Tailwind CSS,
-        Framer Motion, React Email & Resend, Vercel hosting.
-      </p>
+    <footer className="border-t border-line">
+      <Marquee
+        items={["Krushnasinh Jadeja", "Gujarat, India", "Open to collaborations"]}
+        className="border-b border-line py-6"
+        itemClassName="text-outline font-display text-4xl font-extrabold uppercase tracking-tight sm:text-6xl"
+      />
+
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
+        <small className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted">
+          © {currentYear} Krushnasinh Jadeja
+        </small>
+
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          {socialLinks.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="link-underline font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted transition-colors hover:text-paper"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              href={`mailto:${email}`}
+              className="link-underline font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted transition-colors hover:text-paper"
+            >
+              Email
+            </a>
+          </li>
+        </ul>
+
+        <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted">
+          Next.js · TypeScript · Tailwind · GSAP
+        </p>
+      </div>
     </footer>
   );
 }

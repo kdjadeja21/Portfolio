@@ -27,6 +27,23 @@ export const links = [
   },
 ] as const;
 
+export const heroRoles = [
+  "Senior Software Engineer",
+  "Cursor Ambassador",
+  "AI Consultant",
+] as const;
+
+export const heroMarqueeItems = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Node.js",
+  "GraphQL",
+  "AI-assisted engineering",
+  "Cursor",
+  "7+ years shipping",
+] as const;
+
 export const experiencesData = [
   {
     title: "Cursor Ambassador",
@@ -40,9 +57,10 @@ export const experiencesData = [
     title: "Senior Software Engineer",
     location: "EPAM Systems",
     description:
-      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux. Works with Schneider Electric, Wayfair, and Avis Budget Group clients.",
+      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux.",
+    clients: ["Schneider Electric", "Wayfair", "Avis Budget Group"],
     logoSrc: "/logos/epam.svg",
-    logoClassName: "h-[0.9rem] w-[2.35rem] object-contain",
+    logoClassName: "h-[0.8rem] w-[2.1rem] object-contain",
     date: "Feb 2025 – Present",
   },
   {
@@ -95,51 +113,56 @@ export const experiencesData = [
 export type ProductItem = {
   title: string;
   description: string;
+  highlight?: string;
   tags: readonly string[];
   liveUrl?: string;
   githubUrl?: string;
-  imageUrl: string;
 };
 
 export const productsData: readonly ProductItem[] = [
+  {
+    title: "EventClaim",
+    description:
+      "Check-in, coupon, and credit/offer distribution platform for the Cursor community, with admin Google login.",
+    highlight:
+      "Ran ops for the official Cursor Hackathon Ahmedabad — 1,100+ registrations, 138 check-ins, 35 teams.",
+    tags: ["React", "Google Auth"],
+    liveUrl: "https://eventclaim.vercel.app",
+    githubUrl: "https://github.com/kdjadeja21/claimflow",
+  },
+  {
+    title: "Product Demo Video Agent Plugin",
+    description:
+      "Cursor agent plugin that turns a demo.config.json into narrated 1080p product demo videos — browser capture, voice, captions, chapters — with video links dropped in the PR by default.",
+    tags: ["Cursor", "Agent plugin"],
+    githubUrl: "https://github.com/kdjadeja21/product-demo-video-agent-plugin",
+  },
   {
     title: "In-Hand Helper",
     description:
       "Salary impact dashboard that applies the 50% basic-salary rule and compares old vs new tax regimes.",
     tags: ["TypeScript", "React"],
     liveUrl: "https://inhandsalary.vercel.app",
-    imageUrl: "/products/in-hand-helper.png",
   },
   {
     title: "Backdrop Studio",
-    description: "Image background tool with a dark, modern UI.",
+    description: "Image background tool with a dark, modern editing UI.",
     tags: ["React"],
     liveUrl: "https://backdrop-studio.vercel.app",
-    imageUrl: "/products/backdrop-studio.png",
   },
   {
     title: "SIP Calculator",
     description:
-      "Live systematic investment plan calculator. Footer: Made in India by Krushnasinh Jadeja.",
+      "Live systematic investment plan calculator for planning investments over time.",
     tags: ["React", "MUI", "Vercel"],
     liveUrl: "https://sip-calc.vercel.app",
-    imageUrl: "/products/sip-calculator.png",
-  },
-  {
-    title: "EventClaim",
-    description:
-      "Cursor Community check-in, coupon, and credit/offer distribution with admin Google login. Used at the official Cursor Hackathon Ahmedabad (18 Jul 2026, York IE): 1,100+ registrations, 138 check-ins, 35 teams. Also at claimflow-rust.vercel.app.",
-    tags: ["React", "Google Auth"],
-    liveUrl: "https://eventclaim.vercel.app",
-    imageUrl: "/products/eventclaim.png",
   },
   {
     title: "Router Pulse",
     description:
-      "Home network / LAN device visibility. Public GitHub repo; no marketing URL.",
+      "Home network and LAN device visibility, open source on GitHub.",
     tags: ["TypeScript"],
     githubUrl: "https://github.com/kdjadeja21/router-pulse",
-    imageUrl: "/products/router-pulse.png",
   },
 ] as const;
 
@@ -164,21 +187,74 @@ export const projectsData = [
   },
 ] as const;
 
-export const skillsData = [
-  "TypeScript",
-  "React",
-  "Node.js",
+export type CursorStat = {
+  value: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  sublabel?: string;
+};
+
+export const cursorStats: readonly CursorStat[] = [
+  {
+    value: 179,
+    label: "Agents run",
+    sublabel: "114 local / 65 cloud",
+  },
+  {
+    value: 602.8,
+    decimals: 1,
+    suffix: "M",
+    label: "Tokens used",
+  },
+  {
+    value: 27,
+    label: "Day streak",
+  },
+  {
+    value: 1100,
+    suffix: "+",
+    label: "Hackathon registrations",
+    sublabel: "Cursor Hackathon Ahmedabad",
+  },
+  {
+    value: 138,
+    label: "Hackathon check-ins",
+  },
+  {
+    value: 35,
+    label: "Hackathon teams",
+  },
+] as const;
+
+export const cursorStatsAsOf = "Stats as of 15 Aug 2026";
+
+export type CoreSkill = {
+  name: string;
+  note: string;
+};
+
+export const coreSkills: readonly CoreSkill[] = [
+  { name: "TypeScript", note: "Type-safe everything" },
+  { name: "React", note: "UI engineering" },
+  { name: "Next.js", note: "App Router / RSC" },
+  { name: "Node.js", note: "APIs & services" },
+  { name: "GraphQL", note: "Data layer" },
+  { name: "Cursor", note: "AI-assisted engineering" },
+] as const;
+
+export const toolboxSkills = [
   "JavaScript",
   "Jest",
   "Redux",
-  "GraphQL",
-  "Cursor",
-  "AI consulting",
-  "Next.js",
+  "Apollo",
+  "Express",
   "PostgreSQL",
   "MongoDB",
-  "Express",
+  "Tailwind CSS",
   "AWS",
   "Azure",
-  "Apollo",
+  "Vercel",
+  "AI consulting",
 ] as const;

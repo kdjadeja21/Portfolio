@@ -1,15 +1,37 @@
 import Header from "@/components/header";
 import "./globals.css";
-import { Inter } from "next/font/google";
-import type { Metadata } from "next";
+import { Syne, Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
-import ThemeSwitch from "@/components/theme-switch";
-import ThemeContextProvider from "@/context/theme-context";
+import SmoothScroll from "@/components/smooth-scroll";
+import CustomCursor from "@/components/custom-cursor";
+import ScrollProgress from "@/components/scroll-progress";
 import { Toaster } from "react-hot-toast";
 import { siteUrl } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"] });
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  display: "swap",
+});
+
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-grotesk",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0c",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -28,6 +50,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  openGraph: {
+    title: "Krushnasinh Jadeja — Senior Software Engineer · Cursor Ambassador",
+    description:
+      "I build production software, consult on AI-assisted engineering, and help organisations automate the work around shipping.",
+    url: siteUrl,
+    siteName: "Krushnasinh Jadeja",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -36,27 +66,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className="!scroll-smooth"
-      data-scroll-behavior="smooth"
-    >
+    <html lang="en" data-scroll-behavior="smooth">
       <body
-        className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-36 dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
+        className={`${syne.variable} ${grotesk.variable} ${plexMono.variable} bg-ink font-sans text-paper antialiased`}
       >
-        <div className="bg-[#fbe2e3] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263]"></div>
-        <div className="bg-[#dbd7fb] absolute top-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#676394]"></div>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
 
-        <ThemeContextProvider>
-          <ActiveSectionContextProvider>
-            <Header />
-            {children}
-            <Footer />
+        <ActiveSectionContextProvider>
+          <SmoothScroll />
+          <ScrollProgress />
+          <Header />
+          {children}
+          <Footer />
+          <CustomCursor />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "#17171d",
+                color: "#f0efe9",
+                border: "1px solid rgb(240 239 233 / 0.12)",
+              },
+            }}
+          />
+        </ActiveSectionContextProvider>
 
-            <Toaster position="top-right" />
-            <ThemeSwitch />
-          </ActiveSectionContextProvider>
-        </ThemeContextProvider>
+        <div className="grain" aria-hidden />
       </body>
     </html>
   );
