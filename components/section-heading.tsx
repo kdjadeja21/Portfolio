@@ -42,8 +42,9 @@ export default function SectionHeading({
     <div ref={ref} className={className}>
       <p
         data-heading-el
-        className="font-mono text-[0.7rem] uppercase tracking-[0.3em] text-accent"
+        className="flex items-center gap-3 font-mono text-[0.7rem] uppercase tracking-[0.3em] text-accent"
       >
+        <span data-connector className="connector-node" aria-hidden />
         {index} / {eyebrow}
       </p>
       <h2

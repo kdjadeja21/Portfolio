@@ -7,6 +7,8 @@ import Footer from "@/components/footer";
 import SmoothScroll from "@/components/smooth-scroll";
 import CustomCursor from "@/components/custom-cursor";
 import ScrollProgress from "@/components/scroll-progress";
+import AmbientBackground from "@/components/ambient-background";
+import ConnectorLayer from "@/components/connector-layer";
 import { Toaster } from "react-hot-toast";
 import { siteUrl } from "@/lib/site";
 
@@ -73,6 +75,9 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+
+        <AmbientBackground />
+        <ConnectorLayer />
 
         <ActiveSectionContextProvider>
           <SmoothScroll />
