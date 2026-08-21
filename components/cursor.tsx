@@ -131,6 +131,19 @@ export default function CursorCommunity() {
               </a>{" "}
               was the ops tool for that day.
             </p>
+            <p className="mt-4 max-w-lg leading-relaxed text-cursor-paper/70">
+              I also build for the agent ecosystem itself — like my{" "}
+              <a
+                className="font-medium text-cursor-paper underline underline-offset-4"
+                href="https://github.com/kdjadeja21/product-demo-video-agent-plugin"
+                target="_blank"
+                rel="noreferrer"
+              >
+                product-demo-video agent plugin
+              </a>
+              , which turns a config file into narrated 1080p demo videos
+              linked right in your PR.
+            </p>
 
             <a
               href={cursorProfileUrl}

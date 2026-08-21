@@ -130,6 +130,13 @@ export const productsData: readonly ProductItem[] = [
     githubUrl: "https://github.com/kdjadeja21/claimflow",
   },
   {
+    title: "Product Demo Video Agent Plugin",
+    description:
+      "Cursor agent plugin that turns a demo.config.json into narrated 1080p product demo videos — browser capture, voice, captions, chapters — with video links dropped in the PR by default.",
+    tags: ["Cursor", "Agent plugin"],
+    githubUrl: "https://github.com/kdjadeja21/product-demo-video-agent-plugin",
+  },
+  {
     title: "In-Hand Helper",
     description:
       "Salary impact dashboard that applies the 50% basic-salary rule and compares old vs new tax regimes.",

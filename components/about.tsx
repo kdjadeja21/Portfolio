@@ -13,7 +13,7 @@ type StatItem = {
 
 const stats: readonly StatItem[] = [
   { value: "7+", label: "Years shipping production software" },
-  { value: "5", label: "Public products live" },
+  { value: "6", label: "Public products & plugins shipped" },
   { value: "1000+", label: "Cursor India community members" },
   { value: "3", label: "Roles — engineer, ambassador, consultant" },
 ] as const;
