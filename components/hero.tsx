@@ -9,6 +9,7 @@ import { HiDownload } from "react-icons/hi";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { gsap, useGSAP, SplitText, MOTION_OK } from "@/lib/gsap";
 import { useSectionInView } from "@/lib/hooks";
+import { useMergedRefs } from "@/lib/merge-refs";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { socialLinks, showCvDownload, cvDownloadPath } from "@/lib/site";
 import { heroRoles, heroMarqueeItems } from "@/lib/data";
@@ -30,14 +31,10 @@ const iconLinks = [
 ] as const;
 
 export default function Hero() {
-  const { ref } = useSectionInView("Home", 0.5);
+  const { ref } = useSectionInView("Home");
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
   const sectionRef = useRef<HTMLElement>(null);
-
-  const setRefs = (node: HTMLElement | null) => {
-    sectionRef.current = node;
-    ref(node);
-  };
+  const setRefs = useMergedRefs(sectionRef, ref);
 
   useGSAP(
     () => {

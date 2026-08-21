@@ -9,7 +9,7 @@ import { useSectionInView } from "@/lib/hooks";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
 export default function Products() {
-  const { ref } = useSectionInView("Products", 0.1);
+  const { ref } = useSectionInView("Products");
 
   return (
     <section

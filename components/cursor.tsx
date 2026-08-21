@@ -5,6 +5,7 @@ import Image from "next/image";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { useSectionInView } from "@/lib/hooks";
+import { useMergedRefs } from "@/lib/merge-refs";
 import { cursorStats, cursorStatsAsOf, type CursorStat } from "@/lib/data";
 import { socialLinks } from "@/lib/site";
 
@@ -19,13 +20,9 @@ function formatStat(stat: CursorStat, value: number) {
 }
 
 export default function CursorCommunity() {
-  const { ref } = useSectionInView("Cursor", 0.3);
+  const { ref } = useSectionInView("Cursor");
   const sectionRef = useRef<HTMLElement>(null);
-
-  const setRefs = (node: HTMLElement | null) => {
-    sectionRef.current = node;
-    ref(node);
-  };
+  const setRefs = useMergedRefs(sectionRef, ref);
 
   useGSAP(
     () => {

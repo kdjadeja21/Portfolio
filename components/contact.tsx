@@ -7,17 +7,14 @@ import SectionHeading from "./section-heading";
 import SubmitBtn from "./submit-btn";
 import { sendEmail } from "@/actions/sendEmail";
 import { useSectionInView } from "@/lib/hooks";
+import { useMergedRefs } from "@/lib/merge-refs";
 import { email, socialLinks } from "@/lib/site";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
 export default function Contact() {
-  const { ref } = useSectionInView("Contact", 0.3);
+  const { ref } = useSectionInView("Contact");
   const sectionRef = useRef<HTMLElement>(null);
-
-  const setRefs = (node: HTMLElement | null) => {
-    sectionRef.current = node;
-    ref(node);
-  };
+  const setRefs = useMergedRefs(sectionRef, ref);
 
   useGSAP(
     () => {

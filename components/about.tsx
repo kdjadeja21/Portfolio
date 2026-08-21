@@ -5,6 +5,7 @@ import Image from "next/image";
 import SectionHeading from "./section-heading";
 import { gsap, useGSAP, SplitText, MOTION_OK } from "@/lib/gsap";
 import { useSectionInView } from "@/lib/hooks";
+import { useMergedRefs } from "@/lib/merge-refs";
 
 type StatItem = {
   value: string;
@@ -19,13 +20,9 @@ const stats: readonly StatItem[] = [
 ] as const;
 
 export default function About() {
-  const { ref } = useSectionInView("About", 0.3);
+  const { ref } = useSectionInView("About");
   const sectionRef = useRef<HTMLElement>(null);
-
-  const setRefs = (node: HTMLElement | null) => {
-    sectionRef.current = node;
-    ref(node);
-  };
+  const setRefs = useMergedRefs(sectionRef, ref);
 
   useGSAP(
     () => {

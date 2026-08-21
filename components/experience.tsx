@@ -5,16 +5,13 @@ import Image from "next/image";
 import SectionHeading from "./section-heading";
 import { experiencesData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
+import { useMergedRefs } from "@/lib/merge-refs";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
 export default function Experience() {
-  const { ref } = useSectionInView("Experience", 0.15);
+  const { ref } = useSectionInView("Experience");
   const sectionRef = useRef<HTMLElement>(null);
-
-  const setRefs = (node: HTMLElement | null) => {
-    sectionRef.current = node;
-    ref(node);
-  };
+  const setRefs = useMergedRefs(sectionRef, ref);
 
   useGSAP(
     () => {
