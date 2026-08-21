@@ -106,6 +106,21 @@ export default function Experience() {
                     {experience.description}
                   </p>
                 ) : null}
+                {"clients" in experience ? (
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.24em] text-muted">
+                      Clients
+                    </span>
+                    {experience.clients.map((client) => (
+                      <span
+                        key={client}
+                        className="rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1.5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.14em] text-accent"
+                      >
+                        {client}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
               </li>
             ))}
           </ol>

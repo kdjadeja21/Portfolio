@@ -65,7 +65,7 @@ export default function Header() {
           className="relative z-[110] font-display text-sm font-extrabold uppercase tracking-[0.08em]"
           onClick={() => handleNavClick("Home")}
         >
-          Krushnasinh<span className="text-accent">©</span>
+          Krushnasinh<span className="text-accent">.</span>
         </Link>
 
         <nav className="hidden md:block" aria-label="Primary">

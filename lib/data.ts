@@ -57,7 +57,8 @@ export const experiencesData = [
     title: "Senior Software Engineer",
     location: "EPAM Systems",
     description:
-      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux. Works with Schneider Electric, Wayfair, and Avis Budget Group clients.",
+      "Senior Software Engineer working with JavaScript, TypeScript, React, Next.js, Jest, and Redux.",
+    clients: ["Schneider Electric", "Wayfair", "Avis Budget Group"],
     logoSrc: "/logos/epam.svg",
     logoClassName: "h-[0.8rem] w-[2.1rem] object-contain",
     date: "Feb 2025 – Present",
