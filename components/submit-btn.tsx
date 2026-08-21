@@ -1,26 +1,35 @@
 "use client";
 
 import React from "react";
-import { FaPaperPlane } from "react-icons/fa";
 import { useFormStatus } from "react-dom";
+import { HiArrowUpRight } from "react-icons/hi2";
+import Magnetic from "./magnetic";
 
 export default function SubmitBtn() {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
-      className="group flex items-center justify-center gap-2 h-[3rem] w-[8rem] bg-gray-900 text-white rounded-full outline-none transition-all focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 dark:bg-white/10 dark:text-white dark:hover:bg-white/15 disabled:scale-100 disabled:opacity-65"
-      disabled={pending}
-    >
-      {pending ? (
-        <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
-      ) : (
-        <>
-          Submit{" "}
-          <FaPaperPlane className="text-xs opacity-70 transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />{" "}
-        </>
-      )}
-    </button>
+    <Magnetic>
+      <button
+        type="submit"
+        disabled={pending}
+        className="group inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 font-mono text-xs font-medium uppercase tracking-[0.18em] text-ink transition-all hover:scale-[1.03] active:scale-95 disabled:scale-100 disabled:opacity-60"
+      >
+        {pending ? (
+          <>
+            Sending
+            <span
+              className="h-4 w-4 animate-spin rounded-full border-2 border-ink/30 border-t-ink"
+              aria-hidden
+            />
+          </>
+        ) : (
+          <>
+            Send message
+            <HiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </>
+        )}
+      </button>
+    </Magnetic>
   );
 }

@@ -1,141 +1,116 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import SectionHeading from "./section-heading";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
 import { experiencesData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
-import { useTheme } from "@/context/theme-context";
-
-function ExperienceIcon({
-  item,
-}: {
-  item: (typeof experiencesData)[number];
-}) {
-  if ("logoSrc" in item && item.logoSrc) {
-    const className =
-      "logoClassName" in item && item.logoClassName
-        ? item.logoClassName
-        : "h-8 w-8 object-contain";
-
-    return (
-      <Image
-        src={item.logoSrc}
-        alt=""
-        width={80}
-        height={40}
-        className={className}
-        unoptimized
-      />
-    );
-  }
-
-  return null;
-}
-
-function PresentRibbon({
-  background,
-  color,
-}: {
-  background: string;
-  color: string;
-}) {
-  return (
-    <span
-      aria-label="Present"
-      className="pointer-events-none absolute top-[0.85rem] -right-7 w-[6.5rem] rotate-45 py-[0.28rem] text-center text-[0.62rem] font-semibold tracking-[0.08em] shadow-sm"
-      style={{ background, color }}
-    >
-      Present
-    </span>
-  );
-}
+import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
 export default function Experience() {
-  const { ref } = useSectionInView("Experience");
-  const { theme } = useTheme();
-  const isLight = theme === "light";
+  const { ref } = useSectionInView("Experience", 0.15);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const setRefs = (node: HTMLElement | null) => {
+    sectionRef.current = node;
+    ref(node);
+  };
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        gsap.from("[data-timeline-progress]", {
+          scaleY: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "[data-timeline]",
+            start: "top 75%",
+            end: "bottom 55%",
+            scrub: 0.4,
+          },
+        });
+
+        const entries = gsap.utils.toArray<HTMLElement>("[data-timeline-entry]");
+        for (const entry of entries) {
+          gsap.from(entry, {
+            x: 48,
+            opacity: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: entry,
+              start: "top 85%",
+            },
+          });
+        }
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="experience" className="scroll-mt-28 mb-28 sm:mb-40">
-      <div ref={ref}>
-        <SectionHeading>My experience</SectionHeading>
-      </div>
-      <VerticalTimeline lineColor="">
-        {experiencesData?.map((item, index) => {
-          const isCurrent = item.date.includes("Present");
-          const cardBackground = isCurrent
-            ? isLight
-              ? "#ffffff"
-              : "rgba(255, 255, 255, 0.09)"
-            : isLight
-              ? "#f3f4f6"
-              : "rgba(255, 255, 255, 0.05)";
-          const accent = isCurrent
-            ? isLight
-              ? "#6d5bdb"
-              : "#c4b5fd"
-            : isLight
-              ? "#9ca3af"
-              : "rgba(255, 255, 255, 0.32)";
-          const ribbonColor = isLight ? "#ffffff" : "#1e1b4b";
+    <section
+      ref={setRefs}
+      id="experience"
+      aria-label="Career journey"
+      className="relative border-t border-line px-5 py-24 sm:px-8 sm:py-36"
+    >
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading index="06" eyebrow="Journey" title="Where I've been" />
 
-          return (
-            <React.Fragment key={index}>
-              <VerticalTimelineElement
-                contentStyle={{
-                  background: cardBackground,
-                  boxShadow: `inset 3px 0 0 ${accent}`,
-                  border: isLight
-                    ? "1px solid rgba(0, 0, 0, 0.05)"
-                    : "1px solid rgba(255, 255, 255, 0.06)",
-                  textAlign: "left",
-                  padding: isCurrent
-                    ? "1.3rem 3.25rem 1.3rem 2rem"
-                    : "1.3rem 2rem",
-                  position: "relative",
-                  overflow: "visible",
-                }}
-                icon={<ExperienceIcon item={item} />}
-                iconStyle={{
-                  background: "white",
-                  fontSize: "1.5rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  width: "2.75rem",
-                  height: "2.75rem",
-                }}
+        <div data-timeline className="relative mt-20 max-w-3xl">
+          <div
+            className="absolute bottom-0 left-6 top-0 w-px bg-line"
+            aria-hidden
+          />
+          <div
+            data-timeline-progress
+            className="absolute bottom-0 left-6 top-0 w-px origin-top bg-accent"
+            aria-hidden
+          />
+
+          <ol className="flex flex-col gap-14">
+            {experiencesData.map((experience) => (
+              <li
+                key={`${experience.title}-${experience.date}`}
+                data-timeline-entry
+                className="relative pl-20"
               >
-                {isCurrent ? (
-                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[0.25em]">
-                    <PresentRibbon
-                      background={accent}
-                      color={ribbonColor}
-                    />
-                  </div>
-                ) : null}
-                <h3 className="font-semibold capitalize">{item.title}</h3>
-                <p className="font-normal !mt-0">{item.location}</p>
-                <p className="!mt-1 !font-semibold text-sm text-gray-800 dark:text-white/80">
-                  {item.date}
+                <span className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-paper">
+                  <Image
+                    src={experience.logoSrc}
+                    alt=""
+                    width={40}
+                    height={40}
+                    aria-hidden
+                    className={
+                      "logoClassName" in experience
+                        ? experience.logoClassName
+                        : "h-6 w-6 object-contain"
+                    }
+                  />
+                </span>
+
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.24em] text-accent">
+                  {experience.date}
                 </p>
-                {item.description ? (
-                  <p className="!mt-2 !font-normal text-gray-700 dark:text-white/75">
-                    {item.description}
+                <h3 className="mt-2 font-display text-xl font-bold tracking-tight sm:text-2xl">
+                  {experience.title}
+                </h3>
+                <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+                  {experience.location}
+                </p>
+                {experience.description ? (
+                  <p className="mt-3 max-w-xl leading-relaxed text-paper/70">
+                    {experience.description}
                   </p>
                 ) : null}
-              </VerticalTimelineElement>
-            </React.Fragment>
-          );
-        })}
-      </VerticalTimeline>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
     </section>
   );
 }

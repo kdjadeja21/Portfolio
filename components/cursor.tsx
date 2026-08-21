@@ -1,62 +1,174 @@
 "use client";
 
+import React, { useRef } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
-import SectionHeading from "./section-heading";
+import { HiArrowUpRight } from "react-icons/hi2";
+import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { useSectionInView } from "@/lib/hooks";
+import { cursorStats, cursorStatsAsOf, type CursorStat } from "@/lib/data";
+import { socialLinks } from "@/lib/site";
+
+const cursorProfileUrl = socialLinks.find((link) => link.name === "Cursor")!.url;
+
+function formatStat(stat: CursorStat, value: number) {
+  const formatted =
+    (stat.decimals ?? 0) > 0
+      ? value.toFixed(stat.decimals)
+      : Math.round(value).toLocaleString("en-US");
+  return `${stat.prefix ?? ""}${formatted}${stat.suffix ?? ""}`;
+}
 
 export default function CursorCommunity() {
-  const { ref } = useSectionInView("Cursor");
+  const { ref } = useSectionInView("Cursor", 0.3);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const setRefs = (node: HTMLElement | null) => {
+    sectionRef.current = node;
+    ref(node);
+  };
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        gsap.from("[data-cursor-band]", {
+          y: 90,
+          opacity: 0,
+          scale: 0.98,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+          },
+        });
+
+        const counters =
+          gsap.utils.toArray<HTMLElement>("[data-stat-counter]");
+        for (const counter of counters) {
+          const statIndex = Number(counter.dataset.statIndex);
+          const stat = cursorStats[statIndex];
+          const proxy = { value: 0 };
+          gsap.to(proxy, {
+            value: stat.value,
+            duration: 1.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: counter,
+              start: "top 92%",
+            },
+            onUpdate: () => {
+              counter.textContent = formatStat(stat, proxy.value);
+            },
+          });
+        }
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <motion.section
-      ref={ref}
+    <section
+      ref={setRefs}
       id="cursor"
-      className="mb-28 max-w-[45rem] scroll-mt-28 text-center leading-8 sm:mb-40"
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      aria-label="Cursor Ambassador"
+      className="relative px-4 py-12 sm:px-6 sm:py-16"
     >
-      <div className="mb-6 flex justify-center">
-        <Image
-          src="/logos/cursor.svg"
-          alt="Cursor"
-          width={72}
-          height={72}
-          className="h-[4.5rem] w-[4.5rem]"
-          unoptimized
-        />
+      <div
+        data-cursor-band
+        className="mx-auto max-w-7xl overflow-hidden rounded-3xl bg-accent text-ink"
+      >
+        <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:p-16">
+          <div>
+            <p className="flex items-center gap-3 font-mono text-[0.7rem] uppercase tracking-[0.3em] text-ink/60">
+              <Image
+                src="/logos/cursor.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="h-5 w-5"
+                unoptimized
+                aria-hidden
+              />
+              03 / Community
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-6xl">
+              Cursor
+              <br />
+              Ambassador
+            </h2>
+
+            <p className="mt-8 max-w-lg leading-relaxed text-ink/80">
+              Official Cursor Ambassador for India, with an active community of
+              1000+ members. I help developers get productive with{" "}
+              <a
+                className="font-medium underline underline-offset-4"
+                href="https://cursor.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Cursor
+              </a>
+              , and help organisations build automation around their
+              engineering work — check-in flows, credit distribution, and the
+              operational glue that usually lives in a spreadsheet.
+            </p>
+            <p className="mt-4 max-w-lg leading-relaxed text-ink/80">
+              In July 2026 I co-organized the Cursor Hackathon in Ahmedabad at
+              York IE —{" "}
+              <a
+                className="font-medium underline underline-offset-4"
+                href="https://eventclaim.vercel.app"
+                target="_blank"
+                rel="noreferrer"
+              >
+                EventClaim
+              </a>{" "}
+              was the ops tool for that day.
+            </p>
+
+            <a
+              href={cursorProfileUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group mt-8 inline-flex items-center gap-2 rounded-full border-2 border-ink px-6 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.18em] transition-all hover:bg-ink hover:text-accent"
+            >
+              cursor.com/@kdjadeja
+              <HiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+
+          <div>
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink/15 bg-ink/15">
+              {cursorStats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className="flex flex-col bg-accent p-5 sm:p-6"
+                >
+                  <dd
+                    data-stat-counter
+                    data-stat-index={index}
+                    className="order-1 font-display text-3xl font-extrabold tracking-tight sm:text-4xl"
+                  >
+                    {formatStat(stat, stat.value)}
+                  </dd>
+                  <dt className="order-2 mt-2 font-mono text-[0.6rem] uppercase leading-relaxed tracking-[0.16em] text-ink/60">
+                    {stat.label}
+                    {stat.sublabel ? (
+                      <span className="mt-0.5 block text-ink/45">
+                        {stat.sublabel}
+                      </span>
+                    ) : null}
+                  </dt>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-right font-mono text-[0.6rem] uppercase tracking-[0.2em] text-ink/50">
+              {cursorStatsAsOf}
+            </p>
+          </div>
+        </div>
       </div>
-      <SectionHeading>Cursor Ambassador</SectionHeading>
-      <p className="mb-4 text-gray-700 dark:text-white/80">
-        I&apos;m a{" "}
-        <span className="font-medium">Cursor Ambassador</span> in India. I help
-        developers get productive with{" "}
-        <a
-          className="underline underline-offset-4"
-          href="https://cursor.com"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Cursor
-        </a>
-        , and I help organisations build automation around their engineering
-        work — check-in flows, credit distribution, and the operational glue
-        that usually lives in a spreadsheet.
-      </p>
-      <p className="text-gray-700 dark:text-white/80">
-        In July 2026 I co-organized the Cursor Hackathon in Ahmedabad at York
-        IE: 1,100+ registrations, 138 check-ins, 35 teams.{" "}
-        <a
-          className="underline underline-offset-4"
-          href="https://eventclaim.vercel.app"
-          target="_blank"
-          rel="noreferrer"
-        >
-          EventClaim
-        </a>{" "}
-        was the ops tool for that day.
-      </p>
-    </motion.section>
+    </section>
   );
 }
