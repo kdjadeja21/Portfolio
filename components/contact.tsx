@@ -65,7 +65,7 @@ export default function Contact() {
 
             <a
               href={`mailto:${email}`}
-              className="link-underline mt-8 inline-block font-mono text-sm text-accent sm:text-base"
+              className="link-underline mt-8 inline-block break-all font-display text-xl font-bold tracking-tight text-accent sm:text-3xl"
             >
               {email}
             </a>
