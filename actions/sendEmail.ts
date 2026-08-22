@@ -6,8 +6,6 @@ import { email } from "@/lib/site";
 import { validateString, getErrorMessage } from "@/lib/utils";
 import ContactFormEmail from "@/email/contact-form-email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const sendEmail = async (formData: FormData) => {
   const senderEmail = formData.get("senderEmail");
   const message = formData.get("message");
@@ -24,9 +22,17 @@ export const sendEmail = async (formData: FormData) => {
     };
   }
 
-  let data;
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (!resendApiKey) {
+    return {
+      error: "Email service is not configured. Please try the direct email link.",
+    };
+  }
+
+  const resend = new Resend(resendApiKey);
+
   try {
-    data = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "Portfolio Contact Form <onboarding@resend.dev>",
       to: email,
       subject: "Message from Portfolio contact form",
@@ -36,13 +42,19 @@ export const sendEmail = async (formData: FormData) => {
         senderEmail: senderEmail,
       }),
     });
+
+    if (error) {
+      return {
+        error: error.message,
+      };
+    }
+
+    return {
+      data,
+    };
   } catch (error: unknown) {
     return {
       error: getErrorMessage(error),
     };
   }
-
-  return {
-    data,
-  };
 };
