@@ -1,20 +1,39 @@
 <!--
   EmailJS template for the portfolio contact form.
 
-  Configure this HTML in EmailJS Dashboard > Email Templates.
-  Template variables sent by the app:
+  IMPORTANT: creating a template in EmailJS pre-fills it with EmailJS's own
+  sample content ("Email sent via EmailJS.com", no subject). If you never
+  replace that sample Subject/Content, every email you receive will look
+  like the sample — not this template. Follow every step below.
+
+  How to install this template in EmailJS:
+  1. Go to https://dashboard.emailjs.com/admin/templates and open your
+     template (or click "Create New Template").
+  2. Open the "Content" tab. Switch the editor mode to "Code" (top-right of
+     the editor) — do NOT use the "Design"/drag-and-drop mode, it will not
+     render this raw HTML.
+  3. Delete all existing sample content in the editor and paste the full
+     <div>...</div> markup below in its place.
+  4. In the "Subject" field at the top of the Content tab, enter exactly:
+       New inquiry: {{subject}}
+     (Do not leave this blank — a blank Subject field is why you saw
+     "(no subject)".)
+  5. Open the "Settings" tab and set:
+       To Email     -> {{to_email}}
+       From Name    -> Portfolio Contact
+       Reply To     -> {{reply_to}}
+  6. Click "Save", then use "Test It" in the dashboard to confirm the
+     rendered preview shows this design (not the EmailJS sample) before
+     testing from the live site.
+
+  Template variables sent by the app (components/contact.tsx):
+  - {{subject}}
   - {{from_email}}
   - {{reply_to}}
   - {{message}}
   - {{to_email}}
   - {{site_name}}
   - {{submitted_at}}
-
-  Recommended EmailJS settings:
-  - To Email: {{to_email}}
-  - Reply To: {{reply_to}}
-  - From Name: Portfolio Contact
-  - Subject: New portfolio inquiry from {{from_email}}
 -->
 
 <div
@@ -87,6 +106,15 @@
               >
                 Someone reached out from {{site_name}}
               </h1>
+              <p
+                style="
+                  margin: 10px 0 0;
+                  color: #8f8f98;
+                  font-size: 13px;
+                "
+              >
+                {{subject}}
+              </p>
             </td>
           </tr>
 

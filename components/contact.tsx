@@ -56,6 +56,7 @@ export default function Contact() {
         serviceId,
         templateId,
         {
+          subject: `New portfolio inquiry from ${senderEmail}`,
           from_email: senderEmail,
           reply_to: senderEmail,
           message,
