@@ -43,11 +43,11 @@ export default function Contact() {
    * attempt.
    */
   const refreshPrepare = useCallback(async () => {
-    const next = await fetchContactPrepare();
+    const result = await fetchContactPrepare();
 
-    setPrepare(next);
+    setPrepare(result.ok ? result.ticket : null);
 
-    return next;
+    return result;
   }, []);
 
   /**
@@ -76,13 +76,18 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const isTicketUsable =
-        prepare !== null && prepare.expiresAt > Date.now() + 5000;
-      const ticket = isTicketUsable ? prepare : await refreshPrepare();
+      let ticket =
+        prepare && prepare.expiresAt > Date.now() + 5000 ? prepare : null;
 
       if (!ticket) {
-        toast.error("Could not reach the server. Please reload and try again.");
-        return;
+        const refreshed = await refreshPrepare();
+
+        if (!refreshed.ok) {
+          toast.error(refreshed.error);
+          return;
+        }
+
+        ticket = refreshed.ticket;
       }
 
       if (ticket.turnstile.enabled && !turnstileToken) {

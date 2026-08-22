@@ -1,3 +1,5 @@
+import { hashContent } from "./request";
+
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 const secretKey = process.env.TURNSTILE_SECRET_KEY;
@@ -18,9 +20,22 @@ export type TurnstileResult = {
   errorCodes: string[];
 };
 
+/** Cloudflare expects a UUID here, so the seed is folded into that shape. */
+const toIdempotencyKey = (seed: string) => {
+  const hex = hashContent(seed);
+
+  return [
+    hex.slice(0, 8),
+    hex.slice(8, 12),
+    hex.slice(12, 16),
+    hex.slice(16, 20),
+    hex.slice(20, 32),
+  ].join("-");
+};
+
 export const verifyTurnstileToken = async (
   token: unknown,
-  options: { ip: string | null; idempotencyKey: string }
+  options: { ip: string | null; idempotencySeed: string }
 ): Promise<TurnstileResult> => {
   if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
     return { success: false, errorCodes: ["missing-input-response"] };
@@ -29,7 +44,7 @@ export const verifyTurnstileToken = async (
   const body = new URLSearchParams({
     secret: secretKey ?? "",
     response: token,
-    idempotency_key: options.idempotencyKey,
+    idempotency_key: toIdempotencyKey(options.idempotencySeed),
   });
 
   if (options.ip) {

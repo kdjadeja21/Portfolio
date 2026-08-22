@@ -24,27 +24,31 @@ const jsonResponse = (
       : noStore,
   });
 
-const readJsonBody = async (request: Request): Promise<unknown | null> => {
+type BodyResult =
+  | { ok: true; value: Record<string, unknown> }
+  | { ok: false; status: 400 | 413 };
+
+const readJsonBody = async (request: Request): Promise<BodyResult> => {
   const declaredLength = Number(request.headers.get("content-length") ?? "0");
 
   if (declaredLength > contactSecurity.maxBodyBytes) {
-    return null;
+    return { ok: false, status: 413 };
   }
 
   const raw = await request.text();
 
   if (raw.length > contactSecurity.maxBodyBytes) {
-    return null;
+    return { ok: false, status: 413 };
   }
 
   try {
     const parsed: unknown = JSON.parse(raw);
 
     return parsed && typeof parsed === "object" && !Array.isArray(parsed)
-      ? parsed
-      : null;
+      ? { ok: true, value: parsed as Record<string, unknown> }
+      : { ok: false, status: 400 };
   } catch {
-    return null;
+    return { ok: false, status: 400 };
   }
 };
 
@@ -60,11 +64,18 @@ export async function POST(request: Request) {
   const identity = buildRequestIdentity(request, sessionId);
   const body = await readJsonBody(request);
 
-  if (body === null) {
-    return jsonResponse(400, { error: "Malformed request." });
+  if (!body.ok) {
+    return jsonResponse(body.status, {
+      error:
+        body.status === 413 ? "Message is too large." : "Malformed request.",
+    });
   }
 
-  const outcome = await guardContactRequest({ request, body, identity });
+  const outcome = await guardContactRequest({
+    request,
+    body: body.value,
+    identity,
+  });
 
   switch (outcome.type) {
     case "reject":

@@ -231,9 +231,7 @@ export const guardContactRequest = async (params: {
   if (turnstile.enabled) {
     const verification = await verifyTurnstileToken(body.turnstileToken, {
       ip: identity.ip,
-      idempotencyKey: hashContent(
-        `${identity.sessionHash}:${String(body.formToken).slice(-24)}`
-      ),
+      idempotencySeed: `${identity.sessionHash}:${String(body.formToken).slice(-24)}`,
     });
 
     if (!verification.success) {

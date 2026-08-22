@@ -27,7 +27,19 @@ export const getClientIp = (headers: Headers): string | null => {
   for (const candidate of candidates) {
     const value = candidate?.trim().replace(/^\[|\]$/g, "");
 
-    if (value && (isIpv4(value) || isIpv6(value))) {
+    if (!value) {
+      continue;
+    }
+
+    // Dual-stack proxies can report IPv4 clients as ::ffff:1.2.3.4; unwrap them
+    // so they are not all bucketed together as one IPv6 prefix.
+    const unwrapped = value.replace(/^::ffff:/i, "");
+
+    if (isIpv4(unwrapped)) {
+      return unwrapped;
+    }
+
+    if (isIpv6(value)) {
       return value;
     }
   }

@@ -15,7 +15,11 @@ export type ContactSubmitResult =
   | { ok: true }
   | { ok: false; status: number; error: string; retryAfterSeconds?: number };
 
-export const fetchContactPrepare = async (): Promise<ContactPrepare | null> => {
+export type ContactPrepareResult =
+  | { ok: true; ticket: ContactPrepare }
+  | { ok: false; error: string };
+
+export const fetchContactPrepare = async (): Promise<ContactPrepareResult> => {
   try {
     const response = await fetch("/api/contact/prepare", {
       method: "GET",
@@ -23,13 +27,24 @@ export const fetchContactPrepare = async (): Promise<ContactPrepare | null> => {
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      return null;
+    if (response.ok) {
+      return { ok: true, ticket: (await response.json()) as ContactPrepare };
     }
 
-    return (await response.json()) as ContactPrepare;
+    const payload = (await response.json().catch(() => ({}))) as {
+      error?: string;
+    };
+
+    return {
+      ok: false,
+      error:
+        payload.error ?? "Could not start a secure session. Please try again.",
+    };
   } catch {
-    return null;
+    return {
+      ok: false,
+      error: "Network error. Please check your connection and try again.",
+    };
   }
 };
 
