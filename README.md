@@ -7,16 +7,16 @@ Personal portfolio for Krushnasinh Jadeja — Senior Software Engineer, Cursor A
 - Dark, editorial single-page design with an interactive dot-field hero, smooth scrolling, and scroll-driven animations.
 - Sections: hero, about, shipped products, Cursor community stats, selected client work, skills, experience, and contact.
 - Public products: EventClaim, In-Hand Helper, Backdrop Studio, SIP Calculator, Router Pulse.
-- Contact form via Resend.
+- Contact form via EmailJS.
 - Respects `prefers-reduced-motion`; animations degrade gracefully.
 
 ## Tech Stack
 
-- React & Next.js (App Router & Server Actions)
+- React & Next.js (App Router)
 - TypeScript
 - Tailwind CSS
 - GSAP (ScrollTrigger, SplitText) & Lenis smooth scroll
-- React Email & Resend
+- EmailJS
 - Vercel hosting
 
 ## Demo
@@ -25,20 +25,24 @@ https://krushnasinh.vercel.app/
 
 ## Contact form email configuration
 
-The contact form uses Resend. For production delivery, Resend now requires a
-verified sending domain when emailing recipients other than the Resend account
-owner.
+The contact form uses EmailJS from the browser. Configure these variables in
+Vercel:
 
-Required environment variables:
+- `NEXT_PUBLIC_EMAILJS_SERVICE_ID`
+- `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`
+- `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`
 
-- `RESEND_API_KEY` — Resend API key.
-- `RESEND_FROM_EMAIL` — sender address on a verified Resend domain, for example
-  `contact@yourdomain.com`.
+The app sends the following template variables to EmailJS:
 
-Optional environment variable:
+- `from_email`
+- `reply_to`
+- `message`
+- `to_email`
+- `site_name`
+- `submitted_at`
 
-- `CONTACT_EMAIL_TO` — recipient inbox. Defaults to the site email in
-  `lib/site.ts`.
+Use `email/emailjs-template.html` as the EmailJS template body. In EmailJS, set:
 
-If `RESEND_FROM_EMAIL` is not set, the code falls back to
-`onboarding@resend.dev`, which is only suitable for Resend testing mode.
+- **To Email**: `{{to_email}}`
+- **Reply To**: `{{reply_to}}`
+- **Subject**: `New portfolio inquiry from {{from_email}}`

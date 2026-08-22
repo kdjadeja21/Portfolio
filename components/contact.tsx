@@ -1,20 +1,83 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import type { FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 import { HiArrowUpRight } from "react-icons/hi2";
 import SectionHeading from "./section-heading";
 import SubmitBtn from "./submit-btn";
-import { sendEmail } from "@/actions/sendEmail";
 import { useSectionInView } from "@/lib/hooks";
 import { useMergedRefs } from "@/lib/merge-refs";
 import { email, socialLinks } from "@/lib/site";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
+const getEmailJsErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message;
+  if (error && typeof error === "object" && "text" in error) {
+    return String(error.text);
+  }
+  return "Email could not be sent. Please use the direct email link.";
+};
+
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
   const sectionRef = useRef<HTMLElement>(null);
   const setRefs = useMergedRefs(sectionRef, ref);
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      toast.error(
+        "Email service is not configured. Please use the direct email link."
+      );
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const senderEmail = String(formData.get("senderEmail") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+
+    if (!senderEmail || !message) {
+      toast.error("Please enter your email and message.");
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_email: senderEmail,
+          reply_to: senderEmail,
+          message,
+          to_email: email,
+          site_name: "Krushnasinh Jadeja Portfolio",
+          submitted_at: new Date().toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: "short",
+            timeZone: "Asia/Kolkata",
+          }),
+        },
+        { publicKey }
+      );
+
+      toast.success("Email sent successfully!");
+      form.reset();
+    } catch (error: unknown) {
+      toast.error(getEmailJsErrorMessage(error));
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   useGSAP(
     () => {
@@ -96,16 +159,7 @@ export default function Contact() {
           <div data-contact-col>
             <form
               className="flex flex-col"
-              action={async (formData) => {
-                const { error } = await sendEmail(formData);
-
-                if (error) {
-                  toast.error(error);
-                  return;
-                }
-
-                toast.success("Email sent successfully!");
-              }}
+              onSubmit={handleSubmit}
             >
               <label
                 htmlFor="senderEmail"
@@ -140,7 +194,7 @@ export default function Contact() {
               />
 
               <div className="mt-10">
-                <SubmitBtn />
+                <SubmitBtn pending={isSending} />
               </div>
             </form>
           </div>

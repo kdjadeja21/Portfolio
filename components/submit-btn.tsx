@@ -5,17 +5,22 @@ import { useFormStatus } from "react-dom";
 import { HiArrowUpRight } from "react-icons/hi2";
 import Magnetic from "./magnetic";
 
-export default function SubmitBtn() {
-  const { pending } = useFormStatus();
+type SubmitBtnProps = {
+  pending?: boolean;
+};
+
+export default function SubmitBtn({ pending }: SubmitBtnProps) {
+  const formStatus = useFormStatus();
+  const isPending = pending ?? formStatus.pending;
 
   return (
     <Magnetic>
       <button
         type="submit"
-        disabled={pending}
+        disabled={isPending}
         className="group inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 font-mono text-xs font-medium uppercase tracking-[0.18em] text-ink transition-all hover:scale-[1.03] active:scale-95 disabled:scale-100 disabled:opacity-60"
       >
-        {pending ? (
+        {isPending ? (
           <>
             Sending
             <span
