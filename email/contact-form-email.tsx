@@ -15,11 +15,15 @@ import {
 type ContactFormEmailProps = {
   message: string;
   senderEmail: string;
+  submittedAt?: string;
+  clientIp?: string | null;
 };
 
 export default function ContactFormEmail({
   message,
   senderEmail,
+  submittedAt,
+  clientIp,
 }: ContactFormEmailProps) {
   return (
     <Html>
@@ -35,6 +39,13 @@ export default function ContactFormEmail({
               <Text>{message}</Text>
               <Hr />
               <Text>The sender&apos;s email is: {senderEmail}</Text>
+              {submittedAt || clientIp ? (
+                <Text className="text-xs text-gray-500">
+                  {submittedAt ? `Submitted ${submittedAt}` : null}
+                  {submittedAt && clientIp ? " · " : null}
+                  {clientIp ? `IP ${clientIp}` : null}
+                </Text>
+              ) : null}
             </Section>
           </Container>
         </Body>

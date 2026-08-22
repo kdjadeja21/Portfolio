@@ -5,8 +5,14 @@ import { useFormStatus } from "react-dom";
 import { HiArrowUpRight } from "react-icons/hi2";
 import Magnetic from "./magnetic";
 
-export default function SubmitBtn() {
-  const { pending } = useFormStatus();
+type SubmitBtnProps = {
+  /** Overrides the form-action status for forms that submit via `onSubmit`. */
+  pending?: boolean;
+};
+
+export default function SubmitBtn({ pending: pendingOverride }: SubmitBtnProps) {
+  const status = useFormStatus();
+  const pending = pendingOverride ?? status.pending;
 
   return (
     <Magnetic>

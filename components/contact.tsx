@@ -1,20 +1,127 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { HiArrowUpRight } from "react-icons/hi2";
 import SectionHeading from "./section-heading";
 import SubmitBtn from "./submit-btn";
-import { sendEmail } from "@/actions/sendEmail";
+import TurnstileWidget from "./turnstile-widget";
+import {
+  fetchContactPrepare,
+  readHoneypotValues,
+  submitContactForm,
+  type ContactPrepare,
+} from "@/lib/contact/client";
+import {
+  EMAIL_MAX_LENGTH,
+  HONEYPOT_FIELDS,
+  MESSAGE_MAX_LENGTH,
+  MESSAGE_MIN_LENGTH,
+} from "@/lib/contact/schema";
 import { useSectionInView } from "@/lib/hooks";
 import { useMergedRefs } from "@/lib/merge-refs";
 import { email, socialLinks } from "@/lib/site";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
+const sleep = (ms: number) =>
+  new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
   const sectionRef = useRef<HTMLElement>(null);
   const setRefs = useMergedRefs(sectionRef, ref);
+  const hasRequestedTicketRef = useRef(false);
+  const [prepare, setPrepare] = useState<ContactPrepare | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  /**
+   * Submit tickets are single use, so a fresh one is fetched after every
+   * attempt.
+   */
+  const refreshPrepare = useCallback(async () => {
+    const next = await fetchContactPrepare();
+
+    setPrepare(next);
+
+    return next;
+  }, []);
+
+  /**
+   * Requested on first contact with the form rather than on page load: it keeps
+   * crawlers out of the quota and gives the ticket time to age past the
+   * minimum fill delay before a human finishes typing.
+   */
+  const handleFormActivate = () => {
+    if (hasRequestedTicketRef.current) {
+      return;
+    }
+
+    hasRequestedTicketRef.current = true;
+    void refreshPrepare();
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    setIsSubmitting(true);
+
+    try {
+      const isTicketUsable =
+        prepare !== null && prepare.expiresAt > Date.now() + 5000;
+      const ticket = isTicketUsable ? prepare : await refreshPrepare();
+
+      if (!ticket) {
+        toast.error("Could not reach the server. Please reload and try again.");
+        return;
+      }
+
+      if (ticket.turnstile.enabled && !turnstileToken) {
+        toast.error("Please complete the human verification, then send again.");
+        return;
+      }
+
+      // The server rejects submissions that arrive suspiciously fast after the
+      // ticket was issued; wait it out instead of surfacing an error.
+      const waitMs = ticket.notBefore - Date.now();
+
+      if (waitMs > 0) {
+        await sleep(waitMs);
+      }
+
+      const result = await submitContactForm({
+        senderEmail: String(formData.get("senderEmail") ?? ""),
+        message: String(formData.get("message") ?? ""),
+        formToken: ticket.token,
+        turnstileToken,
+        honeypots: readHoneypotValues(formData),
+      });
+
+      // Both the ticket and the Turnstile token are spent now, whatever the
+      // outcome, so replace them before the visitor can submit again.
+      setTurnstileToken(null);
+      setTurnstileResetSignal((signal) => signal + 1);
+      void refreshPrepare();
+
+      if (result.ok) {
+        toast.success("Message sent — I'll get back to you soon.");
+        form.reset();
+      } else {
+        toast.error(result.error);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useGSAP(
     () => {
@@ -96,17 +203,23 @@ export default function Contact() {
           <div data-contact-col>
             <form
               className="flex flex-col"
-              action={async (formData) => {
-                const { error } = await sendEmail(formData);
-
-                if (error) {
-                  toast.error(error);
-                  return;
-                }
-
-                toast.success("Email sent successfully!");
-              }}
+              onSubmit={handleSubmit}
+              onFocus={handleFormActivate}
+              onPointerEnter={handleFormActivate}
             >
+              <div className="honeypot" aria-hidden>
+                {HONEYPOT_FIELDS.map((field) => (
+                  <input
+                    key={field}
+                    type="text"
+                    name={field}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    defaultValue=""
+                  />
+                ))}
+              </div>
+
               <label
                 htmlFor="senderEmail"
                 className="font-mono text-[0.65rem] uppercase tracking-[0.24em] text-muted"
@@ -118,7 +231,7 @@ export default function Contact() {
                 name="senderEmail"
                 type="email"
                 required
-                maxLength={500}
+                maxLength={EMAIL_MAX_LENGTH}
                 placeholder="name@company.com"
                 className="mt-3 border-b border-line bg-transparent pb-4 text-lg text-paper outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
               />
@@ -133,14 +246,23 @@ export default function Contact() {
                 id="message"
                 name="message"
                 required
-                maxLength={5000}
+                minLength={MESSAGE_MIN_LENGTH}
+                maxLength={MESSAGE_MAX_LENGTH}
                 rows={6}
                 placeholder="Tell me about it…"
                 className="mt-3 resize-none border-b border-line bg-transparent pb-4 text-lg text-paper outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
               />
 
+              {prepare?.turnstile.enabled && prepare.turnstile.siteKey ? (
+                <TurnstileWidget
+                  siteKey={prepare.turnstile.siteKey}
+                  onToken={setTurnstileToken}
+                  resetSignal={turnstileResetSignal}
+                />
+              ) : null}
+
               <div className="mt-10">
-                <SubmitBtn />
+                <SubmitBtn pending={isSubmitting} />
               </div>
             </form>
           </div>

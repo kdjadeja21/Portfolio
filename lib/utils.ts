@@ -9,6 +9,22 @@ export const validateString = (
   return true;
 };
 
+export const formatDuration = (seconds: number): string => {
+  if (seconds < 60) {
+    return `${Math.max(1, Math.round(seconds))} second${seconds === 1 ? "" : "s"}`;
+  }
+
+  const minutes = Math.ceil(seconds / 60);
+
+  if (minutes < 60) {
+    return `${minutes} minute${minutes === 1 ? "" : "s"}`;
+  }
+
+  const hours = Math.ceil(minutes / 60);
+
+  return `${hours} hour${hours === 1 ? "" : "s"}`;
+};
+
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
 
