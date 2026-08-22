@@ -267,15 +267,17 @@ export default function Contact() {
               >
                 Your email
               </label>
-              <input
-                id="senderEmail"
-                name="senderEmail"
-                type="email"
-                required
-                maxLength={500}
-                placeholder="name@company.com"
-                className="mt-3 appearance-none rounded-none border-0 border-b border-solid border-line bg-transparent pb-4 text-lg text-paper shadow-none outline-none transition-colors placeholder:text-muted/50 focus:border-accent focus:outline-none focus-visible:outline-none"
-              />
+              <div className="contact-field mt-3">
+                <input
+                  id="senderEmail"
+                  name="senderEmail"
+                  type="email"
+                  required
+                  maxLength={500}
+                  placeholder="name@company.com"
+                  className="w-full appearance-none rounded-none border-0 bg-transparent pb-4 text-lg text-paper shadow-none outline-none placeholder:text-muted/50 focus:outline-none focus-visible:outline-none"
+                />
+              </div>
 
               <label
                 htmlFor="message"
@@ -283,15 +285,17 @@ export default function Contact() {
               >
                 Your message
               </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                maxLength={5000}
-                rows={6}
-                placeholder="Tell me about it…"
-                className="mt-3 appearance-none resize-none rounded-none border-0 border-b border-solid border-line bg-transparent pb-4 text-lg text-paper shadow-none outline-none transition-colors placeholder:text-muted/50 focus:border-accent focus:outline-none focus-visible:outline-none"
-              />
+              <div className="contact-field mt-3">
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  maxLength={5000}
+                  rows={6}
+                  placeholder="Tell me about it…"
+                  className="w-full appearance-none resize-none rounded-none border-0 bg-transparent pb-4 text-lg text-paper shadow-none outline-none placeholder:text-muted/50 focus:outline-none focus-visible:outline-none"
+                />
+              </div>
 
               {turnstileSiteKey ? (
                 <TurnstileWidget

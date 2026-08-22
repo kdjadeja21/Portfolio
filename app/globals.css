@@ -71,7 +71,7 @@ body {
   border-top-width: 0 !important;
   border-right-width: 0 !important;
   border-left-width: 0 !important;
-  border-bottom-color: var(--color-accent);
+  border-bottom-color: transparent;
 }
 
 #contact input:-webkit-autofill,
@@ -238,6 +238,39 @@ html.lenis body {
 .link-underline:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* Contact fields: muted rest underline + accent line that draws in on
+   focus (same motion as `.link-underline`). The line lives on a wrapper
+   because `input`/`textarea` cannot host `::after`. */
+.contact-field {
+  position: relative;
+}
+
+.contact-field::before,
+.contact-field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+.contact-field::before {
+  background: var(--color-line);
+}
+
+.contact-field::after {
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.contact-field:focus-within::after {
+  transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
