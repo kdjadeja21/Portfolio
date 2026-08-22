@@ -7,9 +7,10 @@ import Magnetic from "./magnetic";
 
 type SubmitBtnProps = {
   pending?: boolean;
+  disabled?: boolean;
 };
 
-export default function SubmitBtn({ pending }: SubmitBtnProps) {
+export default function SubmitBtn({ pending, disabled }: SubmitBtnProps) {
   const formStatus = useFormStatus();
   const isPending = pending ?? formStatus.pending;
 
@@ -17,7 +18,7 @@ export default function SubmitBtn({ pending }: SubmitBtnProps) {
     <Magnetic>
       <button
         type="submit"
-        disabled={isPending}
+        disabled={isPending || disabled}
         className="group inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 font-mono text-xs font-medium uppercase tracking-[0.18em] text-ink transition-all hover:scale-[1.03] active:scale-95 disabled:scale-100 disabled:opacity-60"
       >
         {isPending ? (

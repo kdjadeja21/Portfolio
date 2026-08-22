@@ -7,7 +7,7 @@ Personal portfolio for Krushnasinh Jadeja — Senior Software Engineer, Cursor A
 - Dark, editorial single-page design with an interactive dot-field hero, smooth scrolling, and scroll-driven animations.
 - Sections: hero, about, shipped products, Cursor community stats, selected client work, skills, experience, and contact.
 - Public products: EventClaim, In-Hand Helper, Backdrop Studio, SIP Calculator, Router Pulse.
-- Contact form via EmailJS.
+- Contact form via EmailJS, protected against bots with Cloudflare Turnstile and a honeypot field.
 - Respects `prefers-reduced-motion`; animations degrade gracefully.
 
 ## Tech Stack
@@ -80,3 +80,40 @@ To install the template, all you need is 4 field values — no HTML to paste:
    above.
 
 See `email/emailjs-template.html` for the full setup reference.
+
+## Contact form bot protection
+
+The contact form is protected against bots/scripts submitting it in two ways:
+
+1. **Honeypot field** — a hidden input (`company_website`) that's invisible
+   and unreachable to real visitors (removed from tab order, no autofill,
+   zero-size). A bot that programmatically fills every field in the form's
+   HTML will fill this one too, and the submit handler in
+   `components/contact.tsx` silently discards the submission when it's
+   non-empty. Requires no configuration.
+2. **Cloudflare Turnstile** — a CAPTCHA alternative that runs in
+   `interaction-only` mode, so it's invisible for most visitors and only
+   shows a challenge when Cloudflare is unsure the visitor is human. The
+   token it produces is verified server-side, in
+   `app/api/contact/verify-turnstile/route.ts`, before the browser is
+   allowed to call EmailJS — so a script that skips the widget entirely
+   (e.g. calling the form's submit handler directly) still can't get an
+   email sent without a valid, freshly-solved token.
+
+Turnstile is opt-in: the form works without it (only the honeypot applies)
+until both env vars below are set, mirroring how the EmailJS vars are
+optional in local development.
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` — public site key, exposed to the browser.
+- `TURNSTILE_SECRET_KEY` — secret key, used only server-side to verify tokens.
+  **Never** prefix this with `NEXT_PUBLIC_`.
+
+To set it up:
+
+1. Create a widget at the
+   [Cloudflare Turnstile dashboard](https://dash.cloudflare.com/?to=/:account/turnstile)
+   with widget mode **Invisible** (or **Managed**).
+2. Copy the **Site Key** and **Secret Key** into the env vars above, both
+   locally (`.env.local`) and in Vercel.
+3. Redeploy — the widget appears in the contact form automatically once
+   `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set.

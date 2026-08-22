@@ -45,6 +45,47 @@ body {
   border-radius: 2px;
 }
 
+/* Contact fields already use an underline (`border-b` + `focus:border-accent`).
+   Native input chrome, the global `:focus-visible` ring, and autofill
+   backgrounds would otherwise draw a full rectangle around them. */
+#contact input,
+#contact textarea {
+  appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+}
+
+#contact input:focus,
+#contact input:focus-visible,
+#contact textarea:focus,
+#contact textarea:focus-visible {
+  outline: none !important;
+  outline-offset: 0;
+  border-radius: 0;
+  box-shadow: none !important;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+  border-bottom-color: var(--color-accent);
+}
+
+#contact input:-webkit-autofill,
+#contact input:-webkit-autofill:hover,
+#contact input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-paper);
+  caret-color: var(--color-paper);
+  box-shadow: 0 0 0 1000px var(--color-ink) inset;
+  border-radius: 0;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+}
+
 /* ---------- Lenis smooth scroll ---------- */
 html.lenis,
 html.lenis body {
