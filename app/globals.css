@@ -45,6 +45,47 @@ body {
   border-radius: 2px;
 }
 
+/* Contact fields already use an underline (`border-b` + `focus:border-accent`).
+   Native input chrome, the global `:focus-visible` ring, and autofill
+   backgrounds would otherwise draw a full rectangle around them. */
+#contact input,
+#contact textarea {
+  appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+}
+
+#contact input:focus,
+#contact input:focus-visible,
+#contact textarea:focus,
+#contact textarea:focus-visible {
+  outline: none !important;
+  outline-offset: 0;
+  border-radius: 0;
+  box-shadow: none !important;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+  border-bottom-color: transparent;
+}
+
+#contact input:-webkit-autofill,
+#contact input:-webkit-autofill:hover,
+#contact input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-paper);
+  caret-color: var(--color-paper);
+  box-shadow: 0 0 0 1000px var(--color-ink) inset;
+  border-radius: 0;
+  border-top-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 0 !important;
+}
+
 /* ---------- Lenis smooth scroll ---------- */
 html.lenis,
 html.lenis body {
@@ -197,6 +238,39 @@ html.lenis body {
 .link-underline:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* Contact fields: muted rest underline + accent line that draws in on
+   focus (same motion as `.link-underline`). The line lives on a wrapper
+   because `input`/`textarea` cannot host `::after`. */
+.contact-field {
+  position: relative;
+}
+
+.contact-field::before,
+.contact-field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+.contact-field::before {
+  background: var(--color-line);
+}
+
+.contact-field::after {
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.contact-field:focus-within::after {
+  transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {

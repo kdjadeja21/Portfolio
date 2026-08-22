@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { HiArrowUpRight } from "react-icons/hi2";
 import SectionHeading from "./section-heading";
 import SubmitBtn from "./submit-btn";
+import TurnstileWidget from "./turnstile-widget";
 import { useSectionInView } from "@/lib/hooks";
 import { useMergedRefs } from "@/lib/merge-refs";
 import { email, socialLinks } from "@/lib/site";
@@ -14,6 +15,11 @@ import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { buildContactEmailHtml } from "@/lib/email-template";
 
 const SITE_NAME = "Krushnasinh Jadeja Portfolio";
+
+// Classic honeypot: a field that's hidden from sighted users and never
+// exposed to autofill, but visible to bots/scripts that blindly fill every
+// input in the form's HTML.
+const HONEYPOT_FIELD_NAME = "company_website";
 
 const getEmailJsErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message;
@@ -28,6 +34,15 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const setRefs = useMergedRefs(sectionRef, ref);
   const [isSending, setIsSending] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const captchaRequired = Boolean(turnstileSiteKey);
+  const resetTurnstile = () => {
+    setTurnstileToken(null);
+    setTurnstileResetSignal((signal) => signal + 1);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -47,14 +62,51 @@ export default function Contact() {
     const formData = new FormData(form);
     const senderEmail = String(formData.get("senderEmail") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
+    const honeypotValue = String(
+      formData.get(HONEYPOT_FIELD_NAME) ?? ""
+    ).trim();
+
+    // A real visitor never sees or fills this field, so any value here means
+    // a bot filled out the whole form programmatically. Pretend success so
+    // the bot doesn't learn it was caught, without actually sending an email.
+    if (honeypotValue) {
+      toast.success("Email sent successfully!");
+      form.reset();
+      resetTurnstile();
+      return;
+    }
 
     if (!senderEmail || !message) {
       toast.error("Please enter your email and message.");
       return;
     }
 
+    if (captchaRequired && !turnstileToken) {
+      toast.error("Please complete the verification challenge.");
+      return;
+    }
+
     setIsSending(true);
     try {
+      if (captchaRequired) {
+        const verifyResponse = await fetch("/api/contact/verify-turnstile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: turnstileToken }),
+        });
+        const verifyResult = await verifyResponse
+          .json()
+          .catch(() => ({ success: false }));
+
+        if (!verifyResponse.ok || !verifyResult.success) {
+          toast.error(
+            "Verification failed. Please retry the challenge and submit again."
+          );
+          resetTurnstile();
+          return;
+        }
+      }
+
       const submittedAt = new Date().toLocaleString("en-IN", {
         dateStyle: "medium",
         timeStyle: "short",
@@ -100,8 +152,10 @@ export default function Contact() {
 
       toast.success("Email sent successfully!");
       form.reset();
+      resetTurnstile();
     } catch (error: unknown) {
       toast.error(getEmailJsErrorMessage(error));
+      resetTurnstile();
     } finally {
       setIsSending(false);
     }
@@ -189,21 +243,41 @@ export default function Contact() {
               className="flex flex-col"
               onSubmit={handleSubmit}
             >
+              {/* Honeypot: hidden from real users, invisible to screen
+                  readers, and skipped by tab order and autofill — but a
+                  bot that fills every field in the form's markup will
+                  populate it, giving handleSubmit a way to detect it. */}
+              <div
+                className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden"
+                aria-hidden="true"
+              >
+                <label htmlFor={HONEYPOT_FIELD_NAME}>Company website</label>
+                <input
+                  id={HONEYPOT_FIELD_NAME}
+                  name={HONEYPOT_FIELD_NAME}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <label
                 htmlFor="senderEmail"
                 className="font-mono text-[0.65rem] uppercase tracking-[0.24em] text-muted"
               >
                 Your email
               </label>
-              <input
-                id="senderEmail"
-                name="senderEmail"
-                type="email"
-                required
-                maxLength={500}
-                placeholder="name@company.com"
-                className="mt-3 border-b border-line bg-transparent pb-4 text-lg text-paper outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
-              />
+              <div className="contact-field mt-3">
+                <input
+                  id="senderEmail"
+                  name="senderEmail"
+                  type="email"
+                  required
+                  maxLength={500}
+                  placeholder="name@company.com"
+                  className="w-full appearance-none rounded-none border-0 bg-transparent pb-4 text-lg text-paper shadow-none outline-none placeholder:text-muted/50 focus:outline-none focus-visible:outline-none"
+                />
+              </div>
 
               <label
                 htmlFor="message"
@@ -211,18 +285,31 @@ export default function Contact() {
               >
                 Your message
               </label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                maxLength={5000}
-                rows={6}
-                placeholder="Tell me about it…"
-                className="mt-3 resize-none border-b border-line bg-transparent pb-4 text-lg text-paper outline-none transition-colors placeholder:text-muted/50 focus:border-accent"
-              />
+              <div className="contact-field mt-3">
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  maxLength={5000}
+                  rows={6}
+                  placeholder="Tell me about it…"
+                  className="w-full appearance-none resize-none rounded-none border-0 bg-transparent pb-4 text-lg text-paper shadow-none outline-none placeholder:text-muted/50 focus:outline-none focus-visible:outline-none"
+                />
+              </div>
+
+              {turnstileSiteKey ? (
+                <TurnstileWidget
+                  siteKey={turnstileSiteKey}
+                  onToken={setTurnstileToken}
+                  resetSignal={turnstileResetSignal}
+                />
+              ) : null}
 
               <div className="mt-10">
-                <SubmitBtn pending={isSending} />
+                <SubmitBtn
+                  pending={isSending}
+                  disabled={captchaRequired && !turnstileToken}
+                />
               </div>
             </form>
           </div>
