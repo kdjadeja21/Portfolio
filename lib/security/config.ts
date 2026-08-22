@@ -3,7 +3,7 @@ export type RateRule = {
   id: string;
   limit: number;
   windowMs: number;
-  /** Human-readable window used in user-facing messages. */
+  /** Human-readable window used in user-facing messages ("per minute"). */
   window: string;
 };
 
@@ -44,33 +44,33 @@ export const contactSecurity = {
 
   /** Per-IP quotas. IPv6 clients are bucketed by /64 so rotation does not help. */
   ipRules: [
-    { id: "ip-1m", limit: 3, windowMs: MINUTE, window: "a minute" },
-    { id: "ip-1h", limit: perIpHour, windowMs: HOUR, window: "an hour" },
-    { id: "ip-1d", limit: perIpDay, windowMs: DAY, window: "a day" },
+    { id: "ip-1m", limit: 3, windowMs: MINUTE, window: "minute" },
+    { id: "ip-1h", limit: perIpHour, windowMs: HOUR, window: "hour" },
+    { id: "ip-1d", limit: perIpDay, windowMs: DAY, window: "day" },
   ] satisfies RateRule[],
 
   /** Per-browser-session quotas, keyed on a signed HttpOnly cookie. */
   sessionRules: [
-    { id: "session-1h", limit: 4, windowMs: HOUR, window: "an hour" },
-    { id: "session-1d", limit: 8, windowMs: DAY, window: "a day" },
+    { id: "session-1h", limit: 4, windowMs: HOUR, window: "hour" },
+    { id: "session-1d", limit: 8, windowMs: DAY, window: "day" },
   ] satisfies RateRule[],
 
   /** Defense in depth: one sender address cannot loop through many IPs. */
   emailRules: [
-    { id: "email-1h", limit: 3, windowMs: HOUR, window: "an hour" },
-    { id: "email-1d", limit: 5, windowMs: DAY, window: "a day" },
+    { id: "email-1h", limit: 3, windowMs: HOUR, window: "hour" },
+    { id: "email-1d", limit: 5, windowMs: DAY, window: "day" },
   ] satisfies RateRule[],
 
   /** Inbox-wide ceiling, the backstop against distributed floods. */
   globalRules: [
-    { id: "global-1h", limit: globalHour, windowMs: HOUR, window: "an hour" },
-    { id: "global-1d", limit: globalDay, windowMs: DAY, window: "a day" },
+    { id: "global-1h", limit: globalHour, windowMs: HOUR, window: "hour" },
+    { id: "global-1d", limit: globalDay, windowMs: DAY, window: "day" },
   ] satisfies RateRule[],
 
   /** Token issuing is cheap but not free, so it gets its own quota. */
   prepareRules: [
-    { id: "prepare-1h", limit: 40, windowMs: HOUR, window: "an hour" },
-    { id: "prepare-1d", limit: 200, windowMs: DAY, window: "a day" },
+    { id: "prepare-1h", limit: 40, windowMs: HOUR, window: "hour" },
+    { id: "prepare-1d", limit: 200, windowMs: DAY, window: "day" },
   ] satisfies RateRule[],
 
   /**
