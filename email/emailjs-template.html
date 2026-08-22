@@ -7,37 +7,43 @@
   dashboard kept sending its own default sample content ("Email sent via
   EmailJS.com", blank subject) instead of this design.
 
-  The email body is now generated entirely in code
-  (lib/email-template.ts) and sent as a single variable, `email_html`. The
-  dashboard template only needs 4 short field values below — nothing to
-  paste, no editor-mode switch required.
+  The email body is now generated entirely in code (lib/email-template.ts).
+  The app sends it under BOTH `email_html` and `message_html` (different
+  EmailJS template presets reference this content by either name), so
+  whichever variable name your dashboard's Content field already uses will
+  work without touching the app again.
 
   ---------------------------------------------------------------------
-  REQUIRED DASHBOARD SETUP (do this once)
+  REQUIRED DASHBOARD SETUP
   ---------------------------------------------------------------------
   1. Go to https://dashboard.emailjs.com/admin/templates and open your
      template.
   2. On the "Content" tab:
        Subject -> {{subject}}
-       Content -> {{{email_html}}}
-     (Content must use TRIPLE braces — {{{ }}} — not double braces.
-     Double braces would escape the HTML and show it as literal text.)
+       Content -> {{{message_html}}}   (or {{{email_html}}} — both work)
+     Content MUST use TRIPLE braces — {{{ }}} — not double braces.
+     Double braces would escape the HTML and show it as literal text
+     instead of rendering it.
   3. On the "Settings" tab:
        To Email  -> {{to_email}}
-       From Name -> Portfolio Contact
-       Reply To  -> {{reply_to}}
+       From Name -> {{name}}      (sent as the sender's email address,
+                                    since the form only collects an email)
+       Reply To  -> {{email}}     (or {{reply_to}} — both work)
   4. Click "Save", then click "Test It" and confirm the preview shows a
-     rendered dark card design — not EmailJS's own sample text. If the
-     preview still shows "Email sent via EmailJS.com", the Content field
-     was not saved as {{{email_html}}}.
+     rendered dark card design — not EmailJS's own sample text, and not a
+     blank body. A blank body means the Content field's variable name
+     doesn't match anything the app sends — double check step 2.
 
   All variables sent by the app (components/contact.tsx):
   - subject
-  - email_html   (fully rendered HTML body — use with TRIPLE braces)
+  - email_html    (fully rendered HTML body — use with TRIPLE braces)
+  - message_html  (identical value to email_html, alternate name)
   - from_email
   - reply_to
-  - message      (plain text, available if you want to build your own
-                  design directly in the dashboard instead)
+  - email         (identical value to reply_to / from_email, alternate name)
+  - name          (sent as the sender's email address)
+  - message       (plain text, available if you want to build your own
+                   design directly in the dashboard instead)
   - to_email
   - site_name
   - submitted_at

@@ -61,26 +61,39 @@ export default function Contact() {
         timeZone: "Asia/Kolkata",
       });
 
+      const emailHtml = buildContactEmailHtml({
+        senderEmail,
+        message,
+        submittedAt,
+        siteName: SITE_NAME,
+      });
+
       await emailjs.send(
         serviceId,
         templateId,
         {
           subject: `New portfolio inquiry from ${senderEmail}`,
+          // Rendered by our own code, not the EmailJS dashboard editor. Sent
+          // under both common variable names since EmailJS templates in the
+          // wild reference this content as either `email_html` or
+          // `message_html`. The EmailJS template must use triple braces
+          // (`{{{message_html}}}` / `{{{email_html}}}`) so it renders as
+          // HTML instead of being escaped as literal text.
+          email_html: emailHtml,
+          message_html: emailHtml,
+          // Sent under both `reply_to` and `email` — different EmailJS
+          // template presets wire the "Reply To" field to either name.
           from_email: senderEmail,
           reply_to: senderEmail,
+          email: senderEmail,
+          // The default EmailJS template preset uses {{name}} for "From
+          // Name". We only collect an email address on the form, so reuse
+          // it here rather than leaving that field blank.
+          name: senderEmail,
           message,
           to_email: email,
           site_name: SITE_NAME,
           submitted_at: submittedAt,
-          // Rendered by our own code, not the EmailJS dashboard editor. The
-          // EmailJS template must reference this with triple braces
-          // (`{{{email_html}}}`) so it renders as HTML.
-          email_html: buildContactEmailHtml({
-            senderEmail,
-            message,
-            submittedAt,
-            siteName: SITE_NAME,
-          }),
         },
         { publicKey }
       );
