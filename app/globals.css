@@ -152,8 +152,28 @@ html.lenis body {
 /* ---------- Typography helpers ---------- */
 .text-outline {
   -webkit-text-stroke: 1px rgb(240 239 233 / 0.45);
-  color: rgb(10 10 12 / 0.74);
-  text-shadow: 0 0 18px rgb(10 10 12 / 0.75);
+  color: rgb(10 10 12 / 0.92);
+  text-shadow: 0 0 22px rgb(10 10 12 / 0.95);
+}
+
+.skill-readability-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.skill-readability-panel::before {
+  content: "";
+  position: absolute;
+  inset: -0.75rem -1rem;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgb(10 10 12 / 0.9),
+    rgb(10 10 12 / 0.74) 58%,
+    rgb(10 10 12 / 0.88)
+  );
+  border-radius: 1rem;
 }
 
 .link-underline {

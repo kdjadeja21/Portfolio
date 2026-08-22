@@ -50,7 +50,7 @@ export default function Skills() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading index="05" eyebrow="Stack" title="Tools I think in" />
 
-        <ul data-skill-list className="mt-16">
+        <ul data-skill-list className="skill-readability-panel mt-16">
           {coreSkills.map((skill, index) => (
             <li
               key={skill.name}
