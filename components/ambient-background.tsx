@@ -35,8 +35,8 @@ const FLOW_LINES: readonly FlowLine[] = [
     speed: 0.00018,
     depth: 0.16,
     phase: 0.2,
-    width: 1.2,
-    alpha: 0.34,
+    width: 1,
+    alpha: 0.22,
     accent: true,
   },
   {
@@ -47,8 +47,8 @@ const FLOW_LINES: readonly FlowLine[] = [
     speed: 0.00014,
     depth: 0.22,
     phase: 1.8,
-    width: 0.85,
-    alpha: 0.18,
+    width: 0.72,
+    alpha: 0.1,
     accent: false,
   },
   {
@@ -59,8 +59,8 @@ const FLOW_LINES: readonly FlowLine[] = [
     speed: 0.0002,
     depth: 0.3,
     phase: 3.2,
-    width: 1,
-    alpha: 0.22,
+    width: 0.85,
+    alpha: 0.14,
     accent: true,
   },
   {
@@ -71,8 +71,8 @@ const FLOW_LINES: readonly FlowLine[] = [
     speed: 0.00012,
     depth: 0.38,
     phase: 4.7,
-    width: 0.75,
-    alpha: 0.14,
+    width: 0.65,
+    alpha: 0.08,
     accent: false,
   },
   {
@@ -83,8 +83,8 @@ const FLOW_LINES: readonly FlowLine[] = [
     speed: 0.00024,
     depth: 0.44,
     phase: 5.6,
-    width: 1.4,
-    alpha: 0.24,
+    width: 1.05,
+    alpha: 0.15,
     accent: true,
   },
 ] as const;
@@ -203,15 +203,15 @@ export default function AmbientBackground() {
       const last = points[points.length - 1];
       ctx.lineTo(last.x, last.y);
 
-      const lineAlpha = flow.alpha + energy * 0.18;
-      ctx.lineWidth = flow.width + energy * 1.25;
+      const lineAlpha = flow.alpha + energy * 0.1;
+      ctx.lineWidth = flow.width + energy * 0.85;
       ctx.strokeStyle = flow.accent
         ? `rgba(205, 241, 56, ${lineAlpha})`
         : `rgba(240, 239, 233, ${lineAlpha})`;
-      ctx.shadowBlur = flow.accent ? 20 + energy * 28 : 14 + energy * 18;
+      ctx.shadowBlur = flow.accent ? 12 + energy * 18 : 8 + energy * 12;
       ctx.shadowColor = flow.accent
-        ? "rgba(205, 241, 56, 0.35)"
-        : "rgba(240, 239, 233, 0.14)";
+        ? "rgba(205, 241, 56, 0.22)"
+        : "rgba(240, 239, 233, 0.08)";
       ctx.stroke();
       ctx.shadowBlur = 0;
 
@@ -233,8 +233,8 @@ export default function AmbientBackground() {
       ctx.fill();
 
       ctx.fillStyle = flow.accent
-        ? "rgba(205, 241, 56, 0.08)"
-        : "rgba(240, 239, 233, 0.045)";
+        ? "rgba(205, 241, 56, 0.055)"
+        : "rgba(240, 239, 233, 0.03)";
       ctx.beginPath();
       ctx.arc(anchorX + skew, anchorY, bead * 6, 0, Math.PI * 2);
       ctx.fill();
@@ -268,7 +268,7 @@ export default function AmbientBackground() {
         height * 0.45,
         Math.max(width, height) * 0.75
       );
-      vignette.addColorStop(0, "rgba(205, 241, 56, 0.045)");
+      vignette.addColorStop(0, "rgba(205, 241, 56, 0.026)");
       vignette.addColorStop(0.42, "rgba(20, 18, 11, 0.02)");
       vignette.addColorStop(1, "rgba(0, 0, 0, 0.42)");
       ctx.fillStyle = vignette;
@@ -301,7 +301,7 @@ export default function AmbientBackground() {
       const scanY = height * (0.18 + progress * 0.64);
       const scan = ctx.createLinearGradient(0, scanY - 90, 0, scanY + 90);
       scan.addColorStop(0, "rgba(205, 241, 56, 0)");
-      scan.addColorStop(0.5, `rgba(205, 241, 56, ${0.035 + energy * 0.04})`);
+      scan.addColorStop(0.5, `rgba(205, 241, 56, ${0.018 + energy * 0.024})`);
       scan.addColorStop(1, "rgba(205, 241, 56, 0)");
       ctx.fillStyle = scan;
       ctx.fillRect(0, scanY - 90, width, 180);
