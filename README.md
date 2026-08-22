@@ -36,31 +36,39 @@ The app sends the following template variables to EmailJS (see
 `components/contact.tsx`):
 
 - `subject`
+- `email_html` — the fully rendered email body, built by
+  `lib/email-template.ts`
 - `from_email`
 - `reply_to`
-- `message`
+- `message` (plain text)
 - `to_email`
 - `site_name`
 - `submitted_at`
 
 ### Setting up the EmailJS template
 
-A newly created EmailJS template starts pre-filled with EmailJS's own sample
-content (blank subject, body "Email sent via EmailJS.com"). If you don't
-replace that sample, every email you receive will look like the sample —
-not the custom design in this repo. To install the real template:
+The email body is generated in code (`lib/email-template.ts`), not in the
+EmailJS dashboard editor. This avoids the most common EmailJS setup mistake:
+a newly created template starts pre-filled with EmailJS's own sample content
+(blank subject, body "Email sent via EmailJS.com"), and if the dashboard
+Content field is never replaced, every email you receive looks like that
+sample instead of the custom design in this repo.
+
+To install the template, all you need is 4 field values — no HTML to paste:
 
 1. Go to the [EmailJS templates dashboard](https://dashboard.emailjs.com/admin/templates)
    and open your template.
-2. On the **Content** tab, switch the editor to **Code** mode (not
-   Design/drag-and-drop — that mode won't render raw HTML).
-3. Delete the sample content and paste the full contents of
-   `email/emailjs-template.html` in its place.
-4. Set the **Subject** field (same tab) to:
-   `New inquiry: {{subject}}`
-5. On the **Settings** tab, set:
+2. On the **Content** tab, set:
+   - **Subject**: `{{subject}}`
+   - **Content**: `{{{email_html}}}` (triple braces — double braces would
+     escape the HTML and show it as literal text instead of rendering it)
+3. On the **Settings** tab, set:
    - **To Email**: `{{to_email}}`
    - **From Name**: `Portfolio Contact`
    - **Reply To**: `{{reply_to}}`
-6. Click **Save**, then use **Test It** to confirm the preview shows the
-   custom design before testing from the live site.
+4. Click **Save**, then use **Test It** to confirm the preview shows a
+   rendered dark card design — not EmailJS's own sample text. If the preview
+   still shows "Email sent via EmailJS.com", the Content field was not saved
+   as `{{{email_html}}}`.
+
+See `email/emailjs-template.html` for the full setup reference.

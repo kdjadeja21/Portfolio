@@ -11,6 +11,9 @@ import { useSectionInView } from "@/lib/hooks";
 import { useMergedRefs } from "@/lib/merge-refs";
 import { email, socialLinks } from "@/lib/site";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { buildContactEmailHtml } from "@/lib/email-template";
+
+const SITE_NAME = "Krushnasinh Jadeja Portfolio";
 
 const getEmailJsErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message;
@@ -52,6 +55,12 @@ export default function Contact() {
 
     setIsSending(true);
     try {
+      const submittedAt = new Date().toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short",
+        timeZone: "Asia/Kolkata",
+      });
+
       await emailjs.send(
         serviceId,
         templateId,
@@ -61,11 +70,16 @@ export default function Contact() {
           reply_to: senderEmail,
           message,
           to_email: email,
-          site_name: "Krushnasinh Jadeja Portfolio",
-          submitted_at: new Date().toLocaleString("en-IN", {
-            dateStyle: "medium",
-            timeStyle: "short",
-            timeZone: "Asia/Kolkata",
+          site_name: SITE_NAME,
+          submitted_at: submittedAt,
+          // Rendered by our own code, not the EmailJS dashboard editor. The
+          // EmailJS template must reference this with triple braces
+          // (`{{{email_html}}}`) so it renders as HTML.
+          email_html: buildContactEmailHtml({
+            senderEmail,
+            message,
+            submittedAt,
+            siteName: SITE_NAME,
           }),
         },
         { publicKey }

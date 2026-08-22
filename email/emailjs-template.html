@@ -1,187 +1,44 @@
 <!--
-  EmailJS template for the portfolio contact form.
+  EmailJS template setup for the portfolio contact form.
 
-  IMPORTANT: creating a template in EmailJS pre-fills it with EmailJS's own
-  sample content ("Email sent via EmailJS.com", no subject). If you never
-  replace that sample Subject/Content, every email you receive will look
-  like the sample — not this template. Follow every step below.
+  WHY THIS FILE CHANGED: earlier versions of this repo asked you to paste a
+  full HTML design into the EmailJS dashboard's Content editor. In practice
+  that step kept getting missed or pasted into the wrong editor mode, so the
+  dashboard kept sending its own default sample content ("Email sent via
+  EmailJS.com", blank subject) instead of this design.
 
-  How to install this template in EmailJS:
+  The email body is now generated entirely in code
+  (lib/email-template.ts) and sent as a single variable, `email_html`. The
+  dashboard template only needs 4 short field values below — nothing to
+  paste, no editor-mode switch required.
+
+  ---------------------------------------------------------------------
+  REQUIRED DASHBOARD SETUP (do this once)
+  ---------------------------------------------------------------------
   1. Go to https://dashboard.emailjs.com/admin/templates and open your
-     template (or click "Create New Template").
-  2. Open the "Content" tab. Switch the editor mode to "Code" (top-right of
-     the editor) — do NOT use the "Design"/drag-and-drop mode, it will not
-     render this raw HTML.
-  3. Delete all existing sample content in the editor and paste the full
-     <div>...</div> markup below in its place.
-  4. In the "Subject" field at the top of the Content tab, enter exactly:
-       New inquiry: {{subject}}
-     (Do not leave this blank — a blank Subject field is why you saw
-     "(no subject)".)
-  5. Open the "Settings" tab and set:
-       To Email     -> {{to_email}}
-       From Name    -> Portfolio Contact
-       Reply To     -> {{reply_to}}
-  6. Click "Save", then use "Test It" in the dashboard to confirm the
-     rendered preview shows this design (not the EmailJS sample) before
-     testing from the live site.
+     template.
+  2. On the "Content" tab:
+       Subject -> {{subject}}
+       Content -> {{{email_html}}}
+     (Content must use TRIPLE braces — {{{ }}} — not double braces.
+     Double braces would escape the HTML and show it as literal text.)
+  3. On the "Settings" tab:
+       To Email  -> {{to_email}}
+       From Name -> Portfolio Contact
+       Reply To  -> {{reply_to}}
+  4. Click "Save", then click "Test It" and confirm the preview shows a
+     rendered dark card design — not EmailJS's own sample text. If the
+     preview still shows "Email sent via EmailJS.com", the Content field
+     was not saved as {{{email_html}}}.
 
-  Template variables sent by the app (components/contact.tsx):
-  - {{subject}}
-  - {{from_email}}
-  - {{reply_to}}
-  - {{message}}
-  - {{to_email}}
-  - {{site_name}}
-  - {{submitted_at}}
+  All variables sent by the app (components/contact.tsx):
+  - subject
+  - email_html   (fully rendered HTML body — use with TRIPLE braces)
+  - from_email
+  - reply_to
+  - message      (plain text, available if you want to build your own
+                  design directly in the dashboard instead)
+  - to_email
+  - site_name
+  - submitted_at
 -->
-
-<div
-  style="
-    margin: 0;
-    padding: 0;
-    background: #0a0a0c;
-    color: #f0efe9;
-    font-family:
-      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      'Segoe UI', sans-serif;
-  "
->
-  <table
-    role="presentation"
-    width="100%"
-    cellspacing="0"
-    cellpadding="0"
-    style="background: #0a0a0c; padding: 32px 16px"
-  >
-    <tr>
-      <td align="center">
-        <table
-          role="presentation"
-          width="100%"
-          cellspacing="0"
-          cellpadding="0"
-          style="
-            max-width: 640px;
-            overflow: hidden;
-            border: 1px solid rgba(240, 239, 233, 0.12);
-            border-radius: 24px;
-            background: #121216;
-          "
-        >
-          <tr>
-            <td
-              style="
-                padding: 28px 32px;
-                border-bottom: 1px solid rgba(240, 239, 233, 0.1);
-                background:
-                  radial-gradient(
-                    circle at top right,
-                    rgba(205, 241, 56, 0.18),
-                    transparent 34%
-                  ),
-                  #121216;
-              "
-            >
-              <p
-                style="
-                  margin: 0 0 12px;
-                  color: #cdf138;
-                  font-size: 11px;
-                  font-weight: 700;
-                  letter-spacing: 0.24em;
-                  text-transform: uppercase;
-                "
-              >
-                New portfolio inquiry
-              </p>
-              <h1
-                style="
-                  margin: 0;
-                  color: #f0efe9;
-                  font-size: 28px;
-                  line-height: 1.1;
-                  letter-spacing: -0.04em;
-                "
-              >
-                Someone reached out from {{site_name}}
-              </h1>
-              <p
-                style="
-                  margin: 10px 0 0;
-                  color: #8f8f98;
-                  font-size: 13px;
-                "
-              >
-                {{subject}}
-              </p>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding: 32px">
-              <p
-                style="
-                  margin: 0 0 8px;
-                  color: #8f8f98;
-                  font-size: 11px;
-                  font-weight: 700;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                "
-              >
-                Sender
-              </p>
-              <p style="margin: 0 0 24px; color: #cdf138; font-size: 18px">
-                {{from_email}}
-              </p>
-
-              <p
-                style="
-                  margin: 0 0 8px;
-                  color: #8f8f98;
-                  font-size: 11px;
-                  font-weight: 700;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                "
-              >
-                Message
-              </p>
-              <div
-                style="
-                  margin: 0;
-                  padding: 22px;
-                  border: 1px solid rgba(240, 239, 233, 0.1);
-                  border-radius: 18px;
-                  background: #17171d;
-                  color: #f0efe9;
-                  font-size: 16px;
-                  line-height: 1.7;
-                  white-space: pre-wrap;
-                "
-              >
-                {{message}}
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td
-              style="
-                padding: 20px 32px;
-                border-top: 1px solid rgba(240, 239, 233, 0.1);
-                color: #8f8f98;
-                font-size: 12px;
-                line-height: 1.6;
-              "
-            >
-              Sent at {{submitted_at}}. Reply directly to this email to respond
-              to {{from_email}}.
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</div>
