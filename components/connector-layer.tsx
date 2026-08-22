@@ -48,11 +48,11 @@ export default function ConnectorLayer() {
     const buildState = (el: Element): ConnectorState => {
       const group = document.createElementNS(SVG_NS, "g");
       group.style.opacity = "0";
-      const glow = createPath(group, 5, 0.1);
-      const line = createPath(group, 1.25, 0.5);
+      const glow = createPath(group, 4, 0.08);
+      const line = createPath(group, 0.95, 0.62);
 
       const dot = document.createElementNS(SVG_NS, "circle");
-      dot.setAttribute("r", "2.5");
+      dot.setAttribute("r", "2");
       dot.setAttribute("fill", `rgba(${ACCENT}, 0.95)`);
       group.appendChild(dot);
 
@@ -96,8 +96,8 @@ export default function ConnectorLayer() {
       state.tween?.kill();
       state.tween = gsap.to(state, {
         progress: 1,
-        duration: 1.5,
-        ease: "power3.inOut",
+        duration: 1.12,
+        ease: "expo.out",
       });
       state.el.classList.add("connector-node--active");
     };
@@ -110,8 +110,8 @@ export default function ConnectorLayer() {
         duration: 0.45,
         ease: "power2.in",
         onComplete: () => {
-          // Forget the anchor so the connector re-targets whichever orb is
-          // nearest the next time it scrolls into view.
+          // Forget the anchor so the connector re-targets whichever flow
+          // node is nearest the next time it scrolls into view.
           state.anchorId = null;
         },
       });
@@ -196,22 +196,23 @@ export default function ConnectorLayer() {
           state.ty = anchor.y;
           state.endInitialized = true;
         } else {
-          state.tx += (anchor.x - state.tx) * 0.085;
-          state.ty += (anchor.y - state.ty) * 0.085;
+          state.tx += (anchor.x - state.tx) * 0.12;
+          state.ty += (anchor.y - state.ty) * 0.12;
         }
 
         let dx = state.tx - sx;
         let dy = state.ty - sy;
         const dist = Math.hypot(dx, dy) || 1;
 
-        // Land on the orb's edge, not its center.
+        // Land on the flow node's edge, not its center.
         const ex = state.tx - (dx / dist) * anchor.radius;
         const ey = state.ty - (dy / dist) * anchor.radius;
         dx = ex - sx;
         dy = ey - sy;
 
-        // Perpendicular bulge gives the line a relaxed, drawn-by-hand arc.
-        const bend = Math.min(dist * 0.16, 90);
+        // Perpendicular bulge makes the connector feel like elastic thread.
+        const bend =
+          Math.min(dist * 0.12, 72) + Math.sin(time * 1.4 + sx * 0.01) * 8;
         const nx = (-dy / dist) * bend;
         const ny = (dx / dist) * bend;
         const c1x = sx + dx * 0.3 + nx;
