@@ -197,7 +197,9 @@ export default function Hero() {
 
           <p className="hidden items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.28em] text-muted sm:flex">
             Scroll to explore
-            <FaArrowDownLong className="animate-bounce text-accent" aria-hidden />
+            <span data-connector aria-hidden>
+              <FaArrowDownLong className="animate-bounce text-accent" />
+            </span>
           </p>
         </div>
       </div>

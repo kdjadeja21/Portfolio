@@ -131,10 +131,49 @@ html.lenis body {
   background: rgb(205 241 56 / 0.1);
 }
 
+/* ---------- Connector nodes ---------- */
+.connector-node {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  border: 1px solid rgb(205 241 56 / 0.55);
+  transition:
+    background-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.connector-node--active {
+  background: var(--color-accent);
+  box-shadow: 0 0 14px rgb(205 241 56 / 0.65);
+}
+
 /* ---------- Typography helpers ---------- */
 .text-outline {
   -webkit-text-stroke: 1px rgb(240 239 233 / 0.45);
-  color: transparent;
+  color: rgb(10 10 12 / 0.97);
+  text-shadow: 0 0 22px rgb(10 10 12 / 0.95);
+}
+
+.skill-readability-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.skill-readability-panel::before {
+  content: "";
+  position: absolute;
+  inset: -0.75rem -1rem;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgb(10 10 12 / 0.97),
+    rgb(10 10 12 / 0.9) 58%,
+    rgb(10 10 12 / 0.96)
+  );
+  border-radius: 1rem;
 }
 
 .link-underline {

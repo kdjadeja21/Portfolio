@@ -64,7 +64,7 @@ Fix Twillo → Twilio. Drop HTML/CSS as headline skills, Django/Python, Framer M
 
 Header + footer: LinkedIn (https), X, GitHub, Cursor, email. Remove CodeSandbox and StackOverflow.
 
-Contact form stays (Resend). Recipient must match kdjadeja209@gmail.com.
+Contact form uses EmailJS. Recipient must match kdjadeja209@gmail.com.
 
 CV PDF at `/Krushnasinh_Jadeja_CV.pdf` must match these dates and include Cursor Ambassador, EPAM SSE, closed Simform dates, 2–3 public products with URLs, Gujarat, email.
 
