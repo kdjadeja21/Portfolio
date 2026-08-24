@@ -12,29 +12,39 @@ export default function Skills() {
     () => {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        gsap.from("[data-skill-row]", {
-          y: 64,
-          opacity: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: 0.09,
-          scrollTrigger: {
-            trigger: "[data-skill-list]",
-            start: "top 82%",
-          },
-        });
+        gsap.fromTo(
+          "[data-skill-row]",
+          { y: 64, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: 0.09,
+            scrollTrigger: {
+              trigger: "[data-skill-list]",
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
 
-        gsap.from("[data-toolbox-item]", {
-          y: 24,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          stagger: 0.04,
-          scrollTrigger: {
-            trigger: "[data-toolbox]",
-            start: "top 88%",
-          },
-        });
+        gsap.fromTo(
+          "[data-toolbox-item]",
+          { y: 24, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.04,
+            scrollTrigger: {
+              trigger: "[data-toolbox] ul",
+              start: "top 92%",
+              once: true,
+            },
+          }
+        );
       });
     },
     { scope: sectionRef }
