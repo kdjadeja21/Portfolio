@@ -46,6 +46,15 @@ export const heroMarqueeItems = [
 
 export const experiencesData = [
   {
+    title: "SpaceX AI Ambassador",
+    location: "SpaceXAI",
+    description:
+      "Official SpaceX AI Ambassador. Helps connect the community with SpaceXAI and Grok, and helps organisations adopt AI-assisted engineering.",
+    logoSrc: "/logos/spacexai.svg",
+    logoClassName: "h-4 w-9 object-contain",
+    date: "Aug 2026 – Present",
+  },
+  {
     title: "Cursor Ambassador",
     location: "Cursor",
     description:
