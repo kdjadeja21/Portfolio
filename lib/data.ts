@@ -51,7 +51,6 @@ export const experiencesData = [
     description:
       "Official SpaceX AI Ambassador. Helps connect the community with SpaceXAI and Grok, and helps organisations adopt AI-assisted engineering.",
     logoSrc: "/logos/spacexai.svg",
-    logoClassName: "h-4 w-9 object-contain",
     date: "Aug 2026 – Present",
   },
   {
