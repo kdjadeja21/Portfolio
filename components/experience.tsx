@@ -74,7 +74,7 @@ export default function Experience() {
                 data-timeline-entry
                 className="relative pl-20"
               >
-                <span className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-line bg-paper">
+                <span className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-paper">
                   <Image
                     src={experience.logoSrc}
                     alt=""
